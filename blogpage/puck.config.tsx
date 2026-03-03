@@ -1,77 +1,274 @@
+import React from "react";
 import { DropZone, type Config } from "@puckeditor/core";
+import { Hero } from "./components/sections/Hero";
+import { ContactInfo } from "./components/sections/ContactInfo";
+import { Navbar } from "./components/sections/Navbar";
+import { Footer } from "./components/sections/Footer";
+import { PaymentLogo } from "./components/sections/PaymentLogo";
+import { Review } from "./components/sections/Review";
+import { AboutUs } from "./components/sections/AboutUs";
 
 type Props = {
-  HeadingBlock: { title: string };
-  GridBlock: {};
-  CardBlock: {
+  Columns: {
+    columns?: number;
+    gap?: number;
+  };
+  VerticalSpace: {
+    height?: number;
+  };
+  Heading: {
+    text: string;
+    level?: 1 | 2 | 3 | 4 | 5 | 6;
+  };
+  Subheading: {
+    text: string;
+    level?: 1 | 2 | 3 | 4 | 5 | 6;
+  };
+  Text: {
+    text: string;
+  };
+  Hero: {
+    backgroundImage: string;
     title: string;
-    description: string;
-    padding: number;
-    variant: string;
-    bgColor: string;
+    subtitle: string;
+    primaryButtonText: string;
+    secondaryButtonText: string;
+    primaryColor: string;
+    secondaryColor: string;
+  };
+  PaymentLogo: {
+    logos: { logo: string }[];
+  };
+  Footer: {
+    text: string;
+  };
+  Navbar: {
+    logo: string;
+    links: { label: string; href: string }[];
+  };
+  ContactInfo: {
+    phone: string;
+    email: string;
+    address: string;
+  };
+  Section: {
+    padding?: number;
+    backgroundColor?: string;
+    maxWidth?: number;
   };
 };
 
 export const config: Config<Props> = {
   components: {
-    HeadingBlock: {
+    Columns: {
       fields: {
-        title: { type: "text" },
+        columns: {
+          type: "number",
+          label: "Columns",
+          min: 1,
+          max: 4,
+        },
+        gap: {
+          type: "number",
+          label: "Gap",
+        },
       },
       defaultProps: {
-        title: "Heading",
+        columns: 2,
+        gap: 20,
       },
-      render: ({ title }) => (
-        <div className="text-4xl font-bold p-4">
-          <h1>{title}</h1>
+      render: ({ columns, gap }) => (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${columns}, 1fr)`,
+            gap: `${gap}px`,
+          }}
+        >
+          <DropZone zone="columns-content" />
         </div>
       ),
     },
-    GridBlock: {
-      render: () => {
-        return (
-          <DropZone zone="my-grid" className="grid grid-cols-3 gap-4 p-4" />
-        );
-      },
-    },
-    CardBlock: {
+
+    Heading: {
       fields: {
-        title: { type: "text" },
-        description: { type: "textarea" },
-        padding: { type: "number" },
-        variant: {
+        text: { type: "text", label: "Text" },
+        level: {
           type: "select",
+          label: "Level",
           options: [
-            { label: "Outlined", value: "border rounded-md" },
-            { label: "Floating", value: "shadow-md" },
-          ],
-        },
-        bgColor: {
-          type: "select",
-          options: [
-            { label: "Inherit", value: "" },
-            { label: "Red", value: "bg-red-300" },
-            { label: "Yellow", value: "bg-yellow-100" },
-            { label: "Green", value: "bg-green-300" },
-            { label: "Blue", value: "bg-blue-300" },
+            { label: "H1", value: 1 },
+            { label: "H2", value: 2 },
+            { label: "H3", value: 3 },
+            { label: "H4", value: 4 },
+            { label: "H5", value: 5 },
+            { label: "H6", value: 6 },
           ],
         },
       },
       defaultProps: {
-        title: "Title",
-        description: "This is a description...",
-        padding: 16,
-        variant: "border rounded-md",
-        bgColor: "inherit",
+        text: "Heading",
+        level: 1,
       },
-      render: ({ title, description, padding, variant, bgColor }) => {
-        return (
-          <div style={{ padding }} className={`${variant} ${bgColor}`}>
-            <h2 className="text-xl font-bold">{title}</h2>
-            <p>{description}</p>
+      render: ({ text, level }) => {
+        const Tag = `h${level}` as React.ElementType;
+        return React.createElement(Tag, null, text);
+      },
+    },
+
+    Subheading: {
+      fields: {
+        text: { type: "text", label: "Text" },
+        level: {
+          type: "select",
+          label: "Level",
+          options: [
+            { label: "H2", value: 2 },
+            { label: "H3", value: 3 },
+            { label: "H4", value: 4 },
+          ],
+        },
+      },
+      defaultProps: {
+        text: "Subheading",
+        level: 2,
+      },
+      render: ({ text, level }) => {
+        const Tag = `h${level}` as React.ElementType;
+        return React.createElement(Tag, null, text);
+      },
+    },
+
+    Text: {
+      fields: {
+        text: { type: "textarea", label: "Text" },
+      },
+      defaultProps: {
+        text: "Sample text...",
+      },
+      render: ({ text }) => <p>{text}</p>,
+    },
+
+    Hero: {
+      fields: {
+        backgroundImage: { type: "text", label: "Background Image URL" },
+        title: { type: "text", label: "Title" },
+        subtitle: { type: "textarea", label: "Subtitle" },
+        primaryButtonText: { type: "text", label: "Primary Button Text" },
+        secondaryButtonText: { type: "text", label: "Secondary Button Text" },
+        primaryColor: { type: "text", label: "Primary Color" },
+        secondaryColor: { type: "text", label: "Secondary Color" },
+      },
+      defaultProps: {
+        backgroundImage: "",
+        title: "Hero Title",
+        subtitle: "Hero description goes here.",
+        primaryButtonText: "Order Now",
+        secondaryButtonText: "Reserve Now",
+        primaryColor: "#FFB347",
+        secondaryColor: "#ffffff",
+      },
+      render: (props) => <Hero {...props} />,
+    },
+
+    PaymentLogo: {
+      fields: {
+        logos: {
+          type: "array",
+          label: "Logos",
+          arrayFields: {
+            logo: { type: "text", label: "Logo URL" },
+          },
+        },
+      },
+      defaultProps: {
+        logos: [],
+      },
+      render: (props) => <PaymentLogo {...props} />,
+    },
+
+    Footer: {
+      fields: {
+        text: { type: "text" },
+      },
+      defaultProps: {
+        text: "© 2026 Your Company",
+      },
+      render: (props) => <Footer {...props} />,
+    },
+
+    Navbar: {
+      fields: {
+        logo: { type: "text", label: "Logo Text" },
+        links: {
+          type: "array",
+          label: "Navigation Links",
+          arrayFields: {
+            label: { type: "text", label: "Label" },
+            href: { type: "text", label: "URL" },
+          },
+        },
+      },
+      defaultProps: {
+        logo: "My Website",
+        links: [
+          { label: "Home", href: "/" },
+          { label: "About", href: "/about" },
+        ],
+      },
+      render: (props) => <Navbar {...props} />,
+    },
+    Section: {
+      category: "layout", // or "other" if you prefer
+      fields: {
+        padding: {
+          type: "number",
+          label: "Padding",
+        },
+        backgroundColor: {
+          type: "text",
+          label: "Background Color",
+        },
+        maxWidth: {
+          type: "number",
+          label: "Max Width",
+        },
+      },
+      defaultProps: {
+        padding: 60,
+        backgroundColor: "#ffffff",
+        maxWidth: 1200,
+      },
+      render: ({ padding, backgroundColor, maxWidth }) => (
+        <section
+          style={{
+            padding: `${padding}px 20px`,
+            backgroundColor,
+          }}
+        >
+          <div
+            style={{
+              maxWidth: `${maxWidth}px`,
+              margin: "0 auto",
+            }}
+          >
+            <DropZone zone="section-content" />
           </div>
-        );
+        </section>
+      ),
+    },
+    ContactInfo: {
+      fields: {
+        phone: { type: "text" },
+        email: { type: "text" },
+        address: { type: "textarea" },
       },
+      defaultProps: {
+        phone: "+91 9876543210",
+        email: "info@example.com",
+        address: "Mumbai, India",
+      },
+      render: (props) => <ContactInfo {...props} />,
     },
   },
 };
