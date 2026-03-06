@@ -1,4 +1,9 @@
-export const SectionBlock = {
+import { ComponentConfig, DropZone } from "@puckeditor/core";
+import { Section, SectionProps } from "./Section";
+
+export const SectionBlock: ComponentConfig<
+  React.PropsWithChildren<SectionProps>
+> = {
   fields: {
     bg: {
       type: "select",
