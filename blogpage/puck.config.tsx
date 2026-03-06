@@ -20,8 +20,18 @@ import {
   ContactInfo,
   OpeningHoursProps,
   OpeningHours,
-  EventSection,
   EventSectionProps,
+  EventSection,
+  LocationMapProps,
+  LocationMap,
+  CateringCTAProps,
+  CateringCTA,
+  FAQSectionProps,
+  FAQSection,
+  AppSectionProps,
+  AppSection,
+  MenuDetails,
+  MenuDetailsProps,
 } from "./components/examples";
 
 interface Components {
@@ -36,6 +46,11 @@ interface Components {
   ContactInfo: React.PropsWithChildren<ContactInfoProps>;
   OpeningHours: React.PropsWithChildren<OpeningHoursProps>;
   EventSection: React.PropsWithChildren<EventSectionProps>;
+  LocationMap: React.PropsWithChildren<LocationMapProps>;
+  CateringCTA: React.PropsWithChildren<CateringCTAProps>;
+  FAQSection: React.PropsWithChildren<FAQSectionProps>;
+  AppSection: React.PropsWithChildren<AppSectionProps>;
+  MenuDetails: React.PropsWithChildren<MenuDetailsProps>;
 }
 
 const config: Config<Components> = {
@@ -817,6 +832,673 @@ const config: Config<Components> = {
 
       render(props) {
         return <EventSection {...props} />;
+      },
+    },
+    LocationMap: {
+      fields: {
+        GoogleMapsEmbedUrl: { type: "text" },
+
+        GapFromTop: { type: "number" },
+        GapFromBottom: { type: "number" },
+
+        MapHeight: {
+          type: "select",
+          options: [
+            { label: "300px", value: "300" },
+            { label: "400px", value: "400" },
+            { label: "500px", value: "500" },
+          ],
+        },
+
+        BorderRadius: {
+          type: "select",
+          options: [
+            { label: "Small", value: "small" },
+            { label: "Medium", value: "medium" },
+            { label: "Large", value: "large" },
+          ],
+        },
+      },
+
+      defaultProps: {
+        GoogleMapsEmbedUrl:
+          "https://www.google.com/maps?q=19.0760,72.8777&z=15&output=embed",
+
+        GapFromTop: 0,
+        GapFromBottom: 0,
+
+        MapHeight: "400",
+        BorderRadius: "medium",
+      },
+
+      render(props) {
+        return <LocationMap {...props} />;
+      },
+    },
+    CateringCTA: {
+      fields: {
+        PrimaryColor: { type: "text" },
+        SecondaryColor: { type: "text" },
+
+        GapFromTop: { type: "number" },
+        GapFromBottom: { type: "number" },
+
+        Layout: {
+          type: "select",
+          options: [
+            { label: "Centered", value: "Centered" },
+            { label: "Split", value: "Split" },
+          ],
+        },
+
+        BackgroundStyle: {
+          type: "select",
+          options: [
+            { label: "Solid", value: "Solid" },
+            { label: "Gradient", value: "Gradient" },
+          ],
+        },
+
+        HeadingText: { type: "text" },
+
+        HeadingSize: {
+          type: "select",
+          options: [
+            { label: "Small", value: "sm" },
+            { label: "Medium", value: "md" },
+            { label: "Large", value: "lg" },
+            { label: "XL", value: "xl" },
+            { label: "2XL", value: "2xl" },
+          ],
+        },
+
+        HeadingWeight: {
+          type: "select",
+          options: [
+            { label: "Thin", value: "1" },
+            { label: "Light", value: "2" },
+            { label: "Normal", value: "3" },
+            { label: "Medium", value: "4" },
+            { label: "SemiBold", value: "5" },
+            { label: "Bold", value: "6" },
+          ],
+        },
+
+        SubText: { type: "text" },
+
+        CTAButtonText: { type: "text" },
+        CTAButtonURL: { type: "text" },
+
+        ButtonShape: {
+          type: "select",
+          options: [
+            { label: "Rounded", value: "rounded" },
+            { label: "Pill", value: "pill" },
+          ],
+        },
+      },
+
+      defaultProps: {
+        PrimaryColor: "#F5A742",
+        SecondaryColor: "#2B1A0F",
+
+        GapFromTop: 40,
+        GapFromBottom: 40,
+
+        Layout: "Centered",
+        BackgroundStyle: "Solid",
+
+        HeadingText: "Catering for Every Occasion",
+        HeadingSize: "xl",
+        HeadingWeight: "6",
+
+        SubText:
+          "Planning a special event? Our catering team is here to make it unforgettable.",
+
+        CTAButtonText: "Get a Quote",
+        CTAButtonURL: "#",
+
+        ButtonShape: "rounded",
+      },
+
+      render(props) {
+        return <CateringCTA {...props} />;
+      },
+    },
+    FAQSection: {
+      fields: {
+        PrimaryColor: { type: "text" },
+        SecondaryColor: { type: "text" },
+
+        HeadingText: { type: "text" },
+
+        HeadingSize: {
+          type: "select",
+          options: [
+            { label: "Small", value: "sm" },
+            { label: "Medium", value: "md" },
+            { label: "Large", value: "lg" },
+            { label: "XL", value: "xl" },
+            { label: "2XL", value: "2xl" },
+          ],
+        },
+
+        HeadingWeight: {
+          type: "select",
+          options: [
+            { label: "Thin", value: "1" },
+            { label: "Light", value: "2" },
+            { label: "Normal", value: "3" },
+            { label: "Medium", value: "4" },
+            { label: "SemiBold", value: "5" },
+            { label: "Bold", value: "6" },
+          ],
+        },
+
+        DisplayStyle: {
+          type: "select",
+          options: [
+            { label: "Accordion", value: "Accordion" },
+            { label: "List", value: "List" },
+            { label: "Simple", value: "Simple" },
+          ],
+        },
+
+        GapFromTop: { type: "number" },
+        GapFromBottom: { type: "number" },
+
+        FAQItems: {
+          type: "array",
+          arrayFields: {
+            Question: { type: "text" },
+            Answer: { type: "textarea" },
+          },
+        },
+      },
+
+      defaultProps: {
+        PrimaryColor: "#F59E0B",
+        SecondaryColor: "#F9FAFB",
+
+        HeadingText: "Frequently Asked Questions",
+
+        HeadingSize: "xl",
+        HeadingWeight: "6",
+
+        DisplayStyle: "Accordion",
+
+        GapFromTop: 40,
+        GapFromBottom: 40,
+
+        FAQItems: [
+          {
+            Question: "What are your opening hours?",
+            Answer:
+              "We are open Monday to Friday 11am–10pm, weekends 10am–11pm.",
+          },
+          {
+            Question: "Do you offer catering services?",
+            Answer: "Yes, we offer catering for private and corporate events.",
+          },
+          {
+            Question: "Is parking available?",
+            Answer: "Yes, free parking is available for all guests.",
+          },
+        ],
+      },
+
+      render(props) {
+        return <FAQSection {...props} />;
+      },
+    },
+    AppSection: {
+      fields: {
+        primaryColor: { type: "text" },
+        secondaryColor: { type: "text" },
+
+        gapFromTop: { type: "number" },
+        gapFromBottom: { type: "number" },
+
+        background: {
+          type: "select",
+          options: [
+            { label: "Template 1", value: "Template1" },
+            { label: "Template 2", value: "Template2" },
+          ],
+        },
+
+        heading: {
+          type: "object",
+          objectFields: {
+            size: {
+              type: "radio",
+              options: [
+                { label: "L", value: "L" },
+                { label: "M", value: "M" },
+                { label: "S", value: "S" },
+              ],
+            },
+
+            level: {
+              type: "select",
+              options: [
+                { label: "H1", value: "1" },
+                { label: "H2", value: "2" },
+                { label: "H3", value: "3" },
+                { label: "H4", value: "4" },
+              ],
+            },
+
+            textTransform: {
+              type: "radio",
+              options: [
+                { label: "lowercase", value: "lowercase" },
+                { label: "uppercase", value: "uppercase" },
+              ],
+            },
+          },
+        },
+
+        descriptionSize: {
+          type: "select",
+          options: [
+            { label: "S", value: "S" },
+            { label: "M", value: "M" },
+            { label: "L", value: "L" },
+            { label: "XL", value: "XL" },
+            { label: "2XL", value: "2XL" },
+          ],
+        },
+
+        shopNameSize: {
+          type: "select",
+          options: [
+            { label: "S", value: "S" },
+            { label: "M", value: "M" },
+            { label: "L", value: "L" },
+            { label: "XL", value: "XL" },
+            { label: "2XL", value: "2XL" },
+          ],
+        },
+
+        shopDescriptionSize: {
+          type: "select",
+          options: [
+            { label: "S", value: "S" },
+            { label: "M", value: "M" },
+            { label: "L", value: "L" },
+          ],
+        },
+
+        alignDownloadAppText: {
+          type: "radio",
+          options: [
+            { label: "left", value: "left" },
+            { label: "center", value: "center" },
+          ],
+        },
+
+        appButtons: {
+          type: "radio",
+          options: [
+            { label: "rounded", value: "rounded" },
+            { label: "square", value: "square" },
+          ],
+        },
+
+        appButtonsSize: {
+          type: "radio",
+          options: [
+            { label: "L", value: "L" },
+            { label: "M", value: "M" },
+            { label: "S", value: "S" },
+          ],
+        },
+
+        alignMobileFrame: {
+          type: "radio",
+          options: [
+            { label: "start", value: "start" },
+            { label: "end", value: "end" },
+          ],
+        },
+
+        alignMobileFrameData: {
+          type: "radio",
+          options: [
+            { label: "left", value: "left" },
+            { label: "center", value: "center" },
+          ],
+        },
+
+        orderNowButton: {
+          type: "object",
+          objectFields: {
+            textColor: { type: "text" },
+
+            shape: {
+              type: "radio",
+              options: [
+                { label: "square", value: "square" },
+                { label: "rounded", value: "rounded" },
+              ],
+            },
+          },
+        },
+
+        reserveNowButton: {
+          type: "object",
+          objectFields: {
+            backgroundColor: { type: "text" },
+            textColor: { type: "text" },
+
+            shape: {
+              type: "radio",
+              options: [
+                { label: "square", value: "square" },
+                { label: "rounded", value: "rounded" },
+              ],
+            },
+          },
+        },
+      },
+
+      defaultProps: {
+        primaryColor: "#e5d7c3",
+        secondaryColor: "#5b3a1a",
+        gapFromTop: 80,
+        gapFromBottom: 80,
+
+        background: "Template1",
+
+        heading: {
+          size: "L",
+          level: "2",
+          textTransform: "lowercase",
+        },
+
+        descriptionSize: "M",
+        shopNameSize: "XL",
+        shopDescriptionSize: "S",
+
+        alignDownloadAppText: "center",
+        appButtons: "rounded",
+        appButtonsSize: "M",
+
+        alignMobileFrame: "start",
+        alignMobileFrameData: "center",
+
+        orderNowButton: {
+          textColor: "black",
+          shape: "rounded",
+        },
+
+        reserveNowButton: {
+          backgroundColor: "transparent",
+          textColor: "black",
+          shape: "rounded",
+        },
+      },
+
+      render(props) {
+        return <AppSection {...props} />;
+      },
+    },
+    MenuDetails: {
+      fields: {
+        primaryColor: { type: "text" },
+        secondaryColor: { type: "text" },
+
+        gapFromTop: { type: "number" },
+        gapFromBottom: { type: "number" },
+
+        backgroundImage: {
+          type: "radio",
+          options: [
+            { label: "show", value: "show" },
+            { label: "hide", value: "hide" },
+          ],
+        },
+
+        topSection: {
+          type: "object",
+          objectFields: {
+            gapTopAndBottom: { type: "number" },
+
+            headingSize: {
+              type: "radio",
+              options: [
+                { label: "L", value: "L" },
+                { label: "M", value: "M" },
+                { label: "S", value: "S" },
+              ],
+            },
+
+            headingLevel: {
+              type: "select",
+              options: [
+                { label: "H1", value: "1" },
+                { label: "H2", value: "2" },
+                { label: "H3", value: "3" },
+                { label: "H4", value: "4" },
+              ],
+            },
+
+            headingTextTransform: {
+              type: "radio",
+              options: [
+                { label: "lowercase", value: "lowercase" },
+                { label: "uppercase", value: "uppercase" },
+              ],
+            },
+
+            categoryBgColor: { type: "text" },
+
+            categoryTextColor: { type: "text" },
+
+            categoryButtonSize: {
+              type: "radio",
+              options: [
+                { label: "L", value: "L" },
+                { label: "M", value: "M" },
+                { label: "S", value: "S" },
+              ],
+            },
+
+            categoryButtonShape: {
+              type: "radio",
+              options: [
+                { label: "square", value: "square" },
+                { label: "rounded", value: "rounded" },
+              ],
+            },
+          },
+        },
+
+        productSection: {
+          type: "object",
+          objectFields: {
+            bgColor: { type: "text" },
+
+            textColor: { type: "text" },
+
+            categoryImageShape: {
+              type: "radio",
+              options: [
+                { label: "square", value: "square" },
+                { label: "rounded", value: "rounded" },
+              ],
+            },
+
+            categoryText: {
+              type: "radio",
+              options: [
+                { label: "with image", value: "with image" },
+                { label: "after image", value: "after image" },
+              ],
+            },
+
+            categoryTextTransform: {
+              type: "radio",
+              options: [
+                { label: "lowercase", value: "lowercase" },
+                { label: "uppercase", value: "uppercase" },
+              ],
+            },
+
+            alignCategoryText: {
+              type: "radio",
+              options: [
+                { label: "left", value: "left" },
+                { label: "center", value: "center" },
+              ],
+            },
+
+            alignProductsText: {
+              type: "radio",
+              options: [
+                { label: "left", value: "left" },
+                { label: "center", value: "center" },
+              ],
+            },
+
+            categoryNameFontSize: {
+              type: "select",
+              options: [
+                { label: "2XL", value: "2XL" },
+                { label: "3XL", value: "3XL" },
+                { label: "4XL", value: "4XL" },
+              ],
+            },
+
+            productNameFontSize: {
+              type: "select",
+              options: [
+                { label: "L", value: "L" },
+                { label: "XL", value: "XL" },
+              ],
+            },
+
+            productsBorder: {
+              type: "select",
+              options: [
+                { label: "0", value: "0" },
+                { label: "1", value: "1" },
+                { label: "2", value: "2" },
+                { label: "3", value: "3" },
+                { label: "4", value: "4" },
+              ],
+            },
+
+            productTextColor: { type: "text" },
+          },
+        },
+
+        orderNowButton: {
+          type: "object",
+          objectFields: {
+            backgroundColor: { type: "text" },
+
+            textColor: { type: "text" },
+
+            hoverTextColor: { type: "text" },
+
+            size: {
+              type: "radio",
+              options: [
+                { label: "L", value: "L" },
+                { label: "M", value: "M" },
+                { label: "S", value: "S" },
+              ],
+            },
+
+            shape: {
+              type: "radio",
+              options: [
+                { label: "square", value: "square" },
+                { label: "rounded", value: "rounded" },
+              ],
+            },
+
+            borderRadius: {
+              type: "radio",
+              options: [
+                { label: "L", value: "L" },
+                { label: "M", value: "M" },
+                { label: "S", value: "S" },
+              ],
+            },
+
+            border: {
+              type: "select",
+              options: [
+                { label: "0", value: "0" },
+                { label: "1", value: "1" },
+                { label: "2", value: "2" },
+                { label: "3", value: "3" },
+                { label: "4", value: "4" },
+              ],
+            },
+
+            borderColor: { type: "text" },
+          },
+        },
+      },
+      defaultProps: {
+        primaryColor: "#fde047",
+        secondaryColor: "#000000",
+
+        gapFromTop: 80,
+        gapFromBottom: 0,
+
+        backgroundImage: "show",
+
+        topSection: {
+          gapTopAndBottom: 24,
+          headingSize: "L",
+          headingLevel: "3",
+          headingTextTransform: "lowercase",
+
+          categoryBgColor: "yellow",
+          categoryTextColor: "black",
+          categoryButtonSize: "M",
+          categoryButtonShape: "rounded",
+        },
+
+        productSection: {
+          bgColor: "white",
+          textColor: "black",
+
+          categoryImageShape: "rounded",
+          categoryText: "with image",
+          categoryTextTransform: "lowercase",
+
+          alignCategoryText: "center",
+          alignProductsText: "left",
+
+          categoryNameFontSize: "3XL",
+          productNameFontSize: "XL",
+
+          productsBorder: "1",
+
+          productTextColor: "black",
+        },
+
+        orderNowButton: {
+          backgroundColor: "#5b3a1a",
+          textColor: "white",
+          hoverTextColor: "black",
+
+          size: "M",
+          shape: "rounded",
+
+          borderRadius: "M",
+          border: "1",
+          borderColor: "transparent",
+        },
+      },
+      render(props) {
+        return <MenuDetails {...props} />;
       },
     },
   },

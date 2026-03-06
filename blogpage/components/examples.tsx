@@ -1,6 +1,15 @@
 import { cx } from "class-variance-authority";
+import {
+  AlignClass,
+  AlignMobileClass,
+  BorderWidthClass,
+  ButtonShapeClass,
+  ButtonSizeClass,
+  LogoSizeToClass,
+  TextSizeToClass,
+} from "../functions";
 
-import React from "react";
+import React, { useState } from "react";
 
 export interface SectionProps {
   bg?: "blue" | "green" | "gray";
@@ -811,84 +820,549 @@ export function EventSection(props: EventSectionProps) {
   );
 }
 
-function LogoSizeToClass(size: "sm" | "md" | "lg") {
-  switch (size) {
-    case "sm":
-      return "h-8 w-auto";
-    case "md":
-      return "h-12 w-auto";
-    case "lg":
-      return "h-20 w-auto";
-    default:
-      return "";
-  }
+export interface LocationMapProps {
+  GapFromTop: number;
+  GapFromBottom: number;
+  GoogleMapsEmbedUrl: string;
+  MapHeight: "300" | "400" | "500";
+  BorderRadius: "small" | "medium" | "large";
 }
 
-function TextSizeToClass(size: "sm" | "md" | "lg" | "xl" | "2xl") {
-  switch (size) {
-    case "sm":
-      return "text-sm";
-    case "md":
-      return "text-base";
-    case "lg":
-      return "text-lg";
-    case "xl":
-      return "text-xl";
-    case "2xl":
-      return "text-2xl";
-    default:
-      return "";
-  }
+export function LocationMap(props: LocationMapProps) {
+  const heightClass = {
+    "300": "h-[300px]",
+    "400": "h-[400px]",
+    "500": "h-[500px]",
+  };
+
+  const borderRadiusClass = {
+    small: "rounded-sm",
+    medium: "rounded-md",
+    large: "rounded-lg",
+  };
+
+  return (
+    <div
+      style={{
+        marginTop: props.GapFromTop,
+        marginBottom: props.GapFromBottom,
+      }}
+      className={cx(
+        "overflow-hidden w-full",
+        heightClass[props.MapHeight],
+        borderRadiusClass[props.BorderRadius],
+      )}
+    >
+      <iframe
+        src={props.GoogleMapsEmbedUrl}
+        className="w-full h-full border-0"
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        allowFullScreen
+      />
+    </div>
+  );
 }
 
-function AlignClass(align: boolean) {
-  return align ? "text-center" : "text-left";
+export interface CateringCTAProps {
+  PrimaryColor: string;
+  SecondaryColor: string;
+  GapFromTop: number;
+  GapFromBottom: number;
+  Layout: "Centered" | "Split";
+  BackgroundStyle: "Solid" | "Gradient";
+  HeadingText: string;
+  HeadingSize: "sm" | "md" | "lg" | "xl" | "2xl";
+  HeadingWeight: "1" | "2" | "3" | "4" | "5" | "6";
+  SubText: string;
+  CTAButtonText: string;
+  CTAButtonURL: string;
+  ButtonShape: "rounded" | "pill";
+}
+export function CateringCTA(props: CateringCTAProps) {
+  const headingSizeClass = {
+    sm: "text-lg",
+    md: "text-xl",
+    lg: "text-2xl",
+    xl: "text-3xl",
+    "2xl": "text-4xl",
+  };
+
+  const headingWeightClass = {
+    "1": "font-thin",
+    "2": "font-light",
+    "3": "font-normal",
+    "4": "font-medium",
+    "5": "font-semibold",
+    "6": "font-bold",
+  };
+
+  const buttonShapeClass = {
+    rounded: "rounded-md",
+    pill: "rounded-full",
+  };
+
+  const layoutClass = {
+    Centered: "text-center items-center",
+    Split: "text-left items-start flex-row justify-between",
+  };
+
+  const backgroundStyle =
+    props.BackgroundStyle === "Gradient"
+      ? {
+          background: `linear-gradient(135deg, ${props.PrimaryColor}, ${props.SecondaryColor})`,
+        }
+      : {
+          background: props.PrimaryColor,
+        };
+
+  return (
+    <section
+      style={{
+        marginTop: props.GapFromTop,
+        marginBottom: props.GapFromBottom,
+        ...backgroundStyle,
+      }}
+      className="w-full py-16 px-6 flex justify-center"
+    >
+      <div
+        className={cx(
+          "max-w-4xl w-full flex flex-col gap-4",
+          layoutClass[props.Layout],
+        )}
+      >
+        <h2
+          className={cx(
+            headingSizeClass[props.HeadingSize],
+            headingWeightClass[props.HeadingWeight],
+            "text-black",
+          )}
+        >
+          {props.HeadingText}
+        </h2>
+
+        <p className="text-sm text-black/70 max-w-xl">{props.SubText}</p>
+
+        <div>
+          <a
+            href={props.CTAButtonURL}
+            className={cx(
+              "inline-block px-6 py-3 mt-4 font-medium text-white transition",
+              buttonShapeClass[props.ButtonShape],
+            )}
+            style={{ backgroundColor: props.SecondaryColor }}
+          >
+            {props.CTAButtonText}
+          </a>
+        </div>
+      </div>
+    </section>
+  );
 }
 
-function AlignMobileClass(alignMobile: boolean) {
-  return alignMobile ? "md:text-center" : "md:text-left";
+export interface FAQItem {
+  Question: string;
+  Answer: string;
 }
 
-function ButtonSizeClass(size: "sm" | "md" | "lg") {
-  switch (size) {
-    case "sm":
-      return "px-3 py-1 text-sm";
-    case "md":
-      return "px-5 py-2 text-base";
-    case "lg":
-      return "px-7 py-3 text-lg";
-    default:
-      return "";
-  }
+export interface FAQSectionProps {
+  PrimaryColor: string;
+  SecondaryColor: string;
+  HeadingText: string;
+  HeadingSize: "sm" | "md" | "lg" | "xl" | "2xl";
+  HeadingWeight: "1" | "2" | "3" | "4" | "5" | "6";
+  GapFromTop: number;
+  GapFromBottom: number;
+  DisplayStyle: "Accordion" | "List" | "Simple";
+  FAQItems: FAQItem[];
 }
 
-function ButtonShapeClass(shape: boolean, rounded: "sm" | "md" | "lg") {
-  if (!shape) return "rounded-none";
-  switch (rounded) {
-    case "sm":
-      return "rounded-sm";
-    case "md":
-      return "rounded-md";
-    case "lg":
-      return "rounded-lg";
-    default:
-      return "";
-  }
+export function FAQSection(props: FAQSectionProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const headingSizeClass = {
+    sm: "text-lg",
+    md: "text-xl",
+    lg: "text-2xl",
+    xl: "text-3xl",
+    "2xl": "text-4xl",
+  };
+
+  const headingWeightClass = {
+    "1": "font-thin",
+    "2": "font-light",
+    "3": "font-normal",
+    "4": "font-medium",
+    "5": "font-semibold",
+    "6": "font-bold",
+  };
+
+  return (
+    <section
+      style={{
+        marginTop: props.GapFromTop,
+        marginBottom: props.GapFromBottom,
+      }}
+      className="w-full py-16 px-6 flex flex-col items-center"
+    >
+      <h2
+        className={cx(
+          "mb-8 text-center",
+          headingSizeClass[props.HeadingSize],
+          headingWeightClass[props.HeadingWeight],
+        )}
+      >
+        {props.HeadingText}
+      </h2>
+
+      <div className="w-full max-w-3xl space-y-4">
+        {props.FAQItems.map((item, index) => {
+          const isOpen = openIndex === index;
+
+          return (
+            <div
+              key={index}
+              className="border rounded-lg overflow-hidden bg-white"
+            >
+              <button
+                onClick={() => setOpenIndex(isOpen ? null : index)}
+                className={cx(
+                  "w-full text-left px-6 py-4 flex justify-between items-center font-medium",
+                  isOpen && "text-white",
+                )}
+                style={{
+                  backgroundColor: isOpen ? props.PrimaryColor : "white",
+                }}
+              >
+                {item.Question}
+                <span>{isOpen ? "−" : "+"}</span>
+              </button>
+
+              {isOpen && (
+                <div
+                  className="px-6 py-4"
+                  style={{ backgroundColor: props.SecondaryColor }}
+                >
+                  {item.Answer}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
 }
 
-function BorderWidthClass(border: "1" | "2" | "3" | "4" | "5") {
-  switch (border) {
-    case "1":
-      return "border";
-    case "2":
-      return "border-2";
-    case "3":
-      return "border-4";
-    case "4":
-      return "border-4";
-    case "5":
-      return "border-8";
-    default:
-      return "";
-  }
+export interface AppSectionProps {
+  primaryColor: string;
+  secondaryColor: string;
+  gapFromTop: number;
+  gapFromBottom: number;
+
+  background: "Template1" | "Template2";
+
+  heading: {
+    size: "L" | "M" | "S";
+    level: "1" | "2" | "3" | "4" | "5" | "6";
+    textTransform: "lowercase" | "uppercase";
+  };
+
+  descriptionSize: "S" | "M" | "L" | "XL" | "2XL";
+  shopNameSize: "S" | "M" | "L" | "XL" | "2XL";
+  shopDescriptionSize: "S" | "M" | "L";
+
+  alignDownloadAppText: "left" | "center";
+
+  appButtons: "rounded" | "square";
+  appButtonsSize: "S" | "M" | "L";
+
+  alignMobileFrame: "start" | "end";
+  alignMobileFrameData: "left" | "center";
+
+  orderNowButton: {
+    textColor: string;
+    shape: "square" | "rounded";
+  };
+
+  reserveNowButton: {
+    backgroundColor: string;
+    textColor: string;
+    shape: "square" | "rounded";
+  };
+}
+
+export function AppSection(props: AppSectionProps) {
+  const headingSize = {
+    L: "text-4xl",
+    M: "text-3xl",
+    S: "text-2xl",
+  };
+
+  const descriptionSize = {
+    S: "text-sm",
+    M: "text-base",
+    L: "text-lg",
+    XL: "text-xl",
+    "2XL": "text-2xl",
+  };
+
+  const buttonSize = {
+    S: "h-8",
+    M: "h-10",
+    L: "h-12",
+  };
+
+  const buttonShape = {
+    rounded: "rounded-md",
+    square: "rounded-none",
+  };
+
+  const alignText = {
+    left: "text-left items-start",
+    center: "text-center items-center",
+  };
+
+  const mobileFrameAlign = {
+    start: "justify-start",
+    end: "justify-end",
+  };
+
+  return (
+    <section
+      style={{
+        marginTop: props.gapFromTop,
+        marginBottom: props.gapFromBottom,
+        background: props.primaryColor,
+      }}
+      className="w-full py-20 px-6"
+    >
+      <div className="max-w-6xl mx-auto grid grid-cols-2 gap-12 items-center">
+        {/* PHONE MOCKUP */}
+        <div className={cx("flex", mobileFrameAlign[props.alignMobileFrame])}>
+          <img src="/mobile-frame.png" className="w-[260px]" />
+        </div>
+
+        {/* CONTENT */}
+        <div
+          className={cx(
+            "flex flex-col gap-6",
+            alignText[props.alignDownloadAppText],
+          )}
+        >
+          <h2
+            className={cx(headingSize[props.heading.size], "font-bold")}
+            style={{ color: props.secondaryColor }}
+          >
+            Download the App!
+          </h2>
+
+          <p className={descriptionSize[props.descriptionSize]}>
+            We want to make it easy and convenient for people like you to order
+            from the comfort of your own home. What are you waiting for? It’s
+            time for us to connect.
+          </p>
+
+          {/* STORE BUTTONS */}
+          <div className="flex gap-4">
+            <img
+              src="/google-play.png"
+              className={cx(
+                buttonSize[props.appButtonsSize],
+                buttonShape[props.appButtons],
+              )}
+            />
+
+            <img
+              src="/app-store.png"
+              className={cx(
+                buttonSize[props.appButtonsSize],
+                buttonShape[props.appButtons],
+              )}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export interface MenuDetailsProps {
+  primaryColor: string;
+  secondaryColor: string;
+
+  gapFromTop: number;
+  gapFromBottom: number;
+
+  backgroundImage: "show" | "hide";
+
+  topSection: {
+    gapTopAndBottom: number;
+    headingSize: "L" | "M" | "S";
+    headingLevel: "1" | "2" | "3" | "4";
+    headingTextTransform: "lowercase" | "uppercase";
+
+    categoryBgColor: string;
+    categoryTextColor: string;
+
+    categoryButtonSize: "L" | "M" | "S";
+    categoryButtonShape: "square" | "rounded";
+  };
+
+  productSection: {
+    bgColor: string;
+    textColor: string;
+
+    categoryImageShape: "square" | "rounded";
+
+    categoryText: "with image" | "after image";
+    categoryTextTransform: "lowercase" | "uppercase";
+
+    alignCategoryText: "left" | "center";
+    alignProductsText: "left" | "center";
+
+    categoryNameFontSize: "2XL" | "3XL" | "4XL";
+    productNameFontSize: "L" | "XL";
+
+    productsBorder: "0" | "1" | "2" | "3" | "4";
+
+    productTextColor: string;
+  };
+
+  orderNowButton: {
+    backgroundColor: string;
+    textColor: string;
+    hoverTextColor: string;
+
+    size: "L" | "M" | "S";
+    shape: "square" | "rounded";
+
+    borderRadius: "L" | "M" | "S";
+    border: "0" | "1" | "2" | "3" | "4";
+    borderColor: string;
+  };
+}
+export function MenuDetails(props: MenuDetailsProps) {
+  const headingSize = {
+    L: "text-4xl",
+    M: "text-3xl",
+    S: "text-2xl",
+  };
+
+  const buttonSize = {
+    L: "px-6 py-3",
+    M: "px-4 py-2",
+    S: "px-3 py-1",
+  };
+
+  const buttonShape = {
+    rounded: "rounded-full",
+    square: "rounded-none",
+  };
+
+  const alignText = {
+    left: "text-left",
+    center: "text-center",
+  };
+
+  return (
+    <section
+      style={{
+        marginTop: props.gapFromTop,
+        marginBottom: props.gapFromBottom,
+      }}
+      className="w-full"
+    >
+      {/* TOP SECTION */}
+      <div
+        style={{ background: props.primaryColor }}
+        className="py-10 px-6 text-center"
+      >
+        <h2
+          className={headingSize[props.topSection.headingSize]}
+          style={{
+            textTransform: props.topSection.headingTextTransform,
+          }}
+        >
+          Creativity is always on our menu
+        </h2>
+
+        {/* CATEGORY BUTTONS */}
+        <div className="flex flex-wrap justify-center gap-3 mt-6">
+          {["Salads", "Starters", "Soups", "Thali", "Curries"].map((cat, i) => (
+            <button
+              key={i}
+              style={{
+                background: props.topSection.categoryBgColor,
+                color: props.topSection.categoryTextColor,
+              }}
+              className={cx(
+                buttonSize[props.topSection.categoryButtonSize],
+                buttonShape[props.topSection.categoryButtonShape],
+                "border border-black",
+              )}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* PRODUCT SECTION */}
+      <div
+        style={{ background: props.productSection.bgColor }}
+        className="py-12 px-6"
+      >
+        <div className="max-w-5xl mx-auto">
+          {/* CATEGORY IMAGE */}
+          {props.backgroundImage === "show" && (
+            <img
+              src="/menu-banner.jpg"
+              className={cx(
+                "w-full mb-8",
+                props.productSection.categoryImageShape === "rounded"
+                  ? "rounded-lg"
+                  : "rounded-none",
+              )}
+            />
+          )}
+
+          {/* PRODUCTS */}
+          <div
+            className={cx(
+              "grid grid-cols-2 gap-8",
+              alignText[props.productSection.alignProductsText],
+            )}
+          >
+            {[1, 2, 3, 4].map((p, i) => (
+              <div key={i} className="border-b pb-4">
+                <h3 className="font-semibold text-xl">Salades</h3>
+                <p className="text-sm">
+                  green peas and potatoes and fresh vegetables
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* ORDER BUTTON */}
+          <div className="flex justify-center mt-10">
+            <button
+              style={{
+                background: props.orderNowButton.backgroundColor,
+                color: props.orderNowButton.textColor,
+                borderColor: props.orderNowButton.borderColor,
+              }}
+              className={cx(
+                buttonSize[props.orderNowButton.size],
+                buttonShape[props.orderNowButton.shape],
+                "border font-semibold",
+              )}
+            >
+              Order Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
