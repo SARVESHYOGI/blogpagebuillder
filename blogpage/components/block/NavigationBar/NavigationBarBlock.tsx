@@ -5,10 +5,13 @@ export const NavigationBarBlock: ComponentConfig<
   React.PropsWithChildren<NavigationBarProps>
 > = {
   fields: {
-    BackgroundColor: { type: "text" },
-    TextIconColor: { type: "text" },
-    GapFromTop: { type: "number" },
-    GapFromBottom: { type: "number" },
+    BackgroundColor: {
+      type: "text",
+      label: "Background Color",
+    },
+    TextIconColor: { type: "text", label: "Text/Icon Color" },
+    GapFromTop: { type: "number", label: "Gap from Top" },
+    GapFromBottom: { type: "number", label: "Gap from Bottom" },
     BackgroundStyle: {
       type: "select",
       options: [
@@ -24,7 +27,6 @@ export const NavigationBarBlock: ComponentConfig<
         { label: "No", value: false },
       ],
     },
-    Logo: { type: "text" },
     ShowLogo: {
       type: "radio",
       options: [
@@ -50,7 +52,6 @@ export const NavigationBarBlock: ComponentConfig<
     Sticky: false,
     ShowLogo: true,
     LogoSize: "md",
-    Logo: "/logo.png",
   },
   render(props) {
     return (

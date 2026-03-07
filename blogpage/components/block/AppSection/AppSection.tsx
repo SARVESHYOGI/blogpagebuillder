@@ -1,4 +1,5 @@
 import { cx } from "class-variance-authority";
+import { data } from "../../../db";
 
 export interface AppSectionProps {
   primaryColor: string;
@@ -6,7 +7,7 @@ export interface AppSectionProps {
   gapFromTop: number;
   gapFromBottom: number;
 
-  background: "Template1" | "Template2";
+  background: "Template1" | "Template2" | "Template3";
 
   heading: {
     size: "L" | "M" | "S";
@@ -40,9 +41,9 @@ export interface AppSectionProps {
 
 export function AppSection(props: AppSectionProps) {
   const headingSize = {
-    L: "text-4xl",
-    M: "text-3xl",
-    S: "text-2xl",
+    L: "text-5xl",
+    M: "text-4xl",
+    S: "text-3xl",
   };
 
   const descriptionSize = {
@@ -79,17 +80,50 @@ export function AppSection(props: AppSectionProps) {
       style={{
         marginTop: props.gapFromTop,
         marginBottom: props.gapFromBottom,
-        background: props.primaryColor,
       }}
-      className="w-full py-20 px-6"
+      className="relative w-full py-24 px-6 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto grid grid-cols-2 gap-12 items-center">
-        {/* PHONE MOCKUP */}
+      {/* TEMPLATE BACKGROUNDS */}
+
+      {props.background === "Template1" && (
+        <div
+          className="absolute inset-0"
+          style={{ background: props.primaryColor }}
+        >
+          {/* TOP WAVE */}
+          <svg viewBox="0 0 1440 200" className="absolute top-0 left-0 w-full">
+            <path
+              fill="#ffffff"
+              d="M0,96L60,101.3C120,107,240,117,360,101.3C480,85,600,43,720,48C840,53,960,107,1080,117.3C1200,128,1320,96,1380,80L1440,64V0H0Z"
+            />
+          </svg>
+        </div>
+      )}
+
+      {props.background === "Template2" && (
+        <div className="absolute inset-0" style={{ background: "#f3f3f3" }}>
+          {/* LEFT WAVE */}
+          <svg viewBox="0 0 500 600" className="absolute left-0 top-0 h-full">
+            <path fill={props.primaryColor} d="M0,0 C300,100 300,500 0,600 Z" />
+          </svg>
+        </div>
+      )}
+
+      {props.background === "Template3" && (
+        <div
+          className="absolute inset-0"
+          style={{ background: props.primaryColor }}
+        />
+      )}
+
+      {/* CONTENT */}
+      <div className="relative max-w-6xl mx-auto grid grid-cols-2 gap-16 items-center">
+        {/* PHONE */}
         <div className={cx("flex", mobileFrameAlign[props.alignMobileFrame])}>
-          <img src="/mobile-frame.png" className="w-[260px]" />
+          <img src={data.shop_images[0].uri} className="w-[280px]" />
         </div>
 
-        {/* CONTENT */}
+        {/* TEXT */}
         <div
           className={cx(
             "flex flex-col gap-6",
@@ -105,14 +139,14 @@ export function AppSection(props: AppSectionProps) {
 
           <p className={descriptionSize[props.descriptionSize]}>
             We want to make it easy and convenient for people like you to order
-            from the comfort of your own home. What are you waiting for? It’s
+            from the comfort of your own home. What are you waiting for? It's
             time for us to connect.
           </p>
 
           {/* STORE BUTTONS */}
           <div className="flex gap-4">
             <img
-              src="/google-play.png"
+              src="/playstore.png"
               className={cx(
                 buttonSize[props.appButtonsSize],
                 buttonShape[props.appButtons],
@@ -120,7 +154,7 @@ export function AppSection(props: AppSectionProps) {
             />
 
             <img
-              src="/app-store.png"
+              src="/applestore.png"
               className={cx(
                 buttonSize[props.appButtonsSize],
                 buttonShape[props.appButtons],

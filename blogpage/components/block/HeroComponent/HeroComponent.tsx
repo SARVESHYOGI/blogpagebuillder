@@ -1,200 +1,184 @@
 import { cx } from "class-variance-authority";
-import {
-  AlignClass,
-  AlignMobileClass,
-  BorderWidthClass,
-  ButtonShapeClass,
-  ButtonSizeClass,
-  LogoSizeToClass,
-  TextSizeToClass,
-} from "../../../functions";
 import React from "react";
-
+import { data } from "../../../db";
 export interface HeroProps {
   PrimaryColor: string;
   SecondaryColor: string;
+
   Align: boolean;
   AlignMobileView: boolean;
-  AppButtonsAlign: "left" | "center" | "right";
-  AppButtonsShape: "square" | "rounded" | "pill";
-  BackGroundImage: string;
-  LogoUrl: string;
-  "Logo.OnDeskTopView": boolean;
-  "Logo.Size": "sm" | "md" | "lg";
-  "Logo.DeskTopViewLeftSideLogo": boolean;
+
+  AppButtons: {
+    Align: "left" | "center" | "right";
+    Shape: boolean;
+  };
+
+  Logo: {
+    onDeskTopView: boolean;
+    size: "L" | "M" | "S";
+    desktopViewLeftSideLogo: boolean;
+  };
   BgShadowOnDeskTop: boolean;
-  "Title.FontSize": "sm" | "md" | "lg";
-  "Title.Level": "1" | "2" | "3" | "4" | "5" | "6";
-  "Title.TextTransForm": boolean;
-  "SubTitle.FontSize": "sm" | "md" | "lg" | "xl" | "2xl";
-  "SubTitle.Level": "1" | "2" | "3" | "4" | "5" | "6";
-  "SubTitle.TextTransForm": boolean;
-  "OrderNow.HoverTextColor": string;
-  "OrderNow.Size": "sm" | "md" | "lg";
-  "OrderNow.Shape": boolean;
-  "OrderNow.Border": "1" | "2" | "3" | "4" | "5";
-  "OrderNow.BorderColor": string;
-  "OrderNow.Rounded": "sm" | "md" | "lg";
-  "OrderNow.TextTransform": boolean;
-  "ReserveNow.BackGroundColor": string;
-  "ReserveNow.TextColor": string;
-  "ReserveNow.Size": "sm" | "md" | "lg";
-  "ReserveNow.Shape": boolean;
-  "ReserveNow.Border": "1" | "2" | "3" | "4" | "5";
-  "ReserveNow.BorderColor": string;
-  "ReserveNow.Rounded": "sm" | "md" | "lg";
-  "ReserveNow.TextTransform": boolean;
+  Title: {
+    fontSize: "L" | "M" | "S";
+    level: 1 | 2 | 3 | 4 | 5 | 6;
+    textTransform: boolean;
+  };
+  SubTitle: {
+    fontSize: "L" | "M" | "S";
+    level: 1 | 2 | 3 | 4 | 5 | 6;
+    textTransform: boolean;
+  };
+  OrderNow: {
+    hoverTextColor: string;
+    size: "sm" | "md" | "lg";
+    shape: "square" | "rounded";
+    border: "1" | "2" | "3";
+    borderColor: string;
+    rounded: "sm" | "md" | "lg";
+    textTransform: boolean;
+  };
+  ReserveNow: {
+    hoverTextColor: string;
+    size: "sm" | "md" | "lg";
+    shape: "square" | "rounded";
+    border: "1" | "2" | "3";
+    borderColor: string;
+    rounded: "sm" | "md" | "lg";
+    textTransform: boolean;
+  };
 }
 
-export function HeroComponent(props: HeroProps) {
-  const {
-    PrimaryColor,
-    SecondaryColor,
-    BackGroundImage,
-    Align,
-    AlignMobileView,
-  } = props;
+const bgImage = data.shop_images[1].uri;
+const logo = data.shop_images[0].uri;
 
-  const appButtons = {
-    align: props.AppButtonsAlign,
-    shape: props.AppButtonsShape,
-  };
-  const logo = {
-    OnDeskTopView: props["Logo.OnDeskTopView"],
-    Size: props["Logo.Size"],
-    DeskTopViewLeftSideLogo: props["Logo.DeskTopViewLeftSideLogo"],
-  };
-  const title = {
-    FontSize: props["Title.FontSize"],
-    Level: props["Title.Level"],
-    TextTransForm: props["Title.TextTransForm"],
-  };
-  const subTitle = {
-    FontSize: props["SubTitle.FontSize"],
-    Level: props["SubTitle.Level"],
-    TextTransForm: props["SubTitle.TextTransForm"],
-  };
-  const orderNow = {
-    HoverTextColor: props["OrderNow.HoverTextColor"],
-    Size: props["OrderNow.Size"],
-    Shape: props["OrderNow.Shape"],
-    Border: props["OrderNow.Border"],
-    BorderColor: props["OrderNow.BorderColor"],
-    Rounded: props["OrderNow.Rounded"],
-    TextTransform: props["OrderNow.TextTransform"],
-  };
-  const reserveNow = {
-    BackGroundColor: props["ReserveNow.BackGroundColor"],
-    TextColor: props["ReserveNow.TextColor"],
-    Size: props["ReserveNow.Size"],
-    Shape: props["ReserveNow.Shape"],
-    Border: props["ReserveNow.Border"],
-    BorderColor: props["ReserveNow.BorderColor"],
-    Rounded: props["ReserveNow.Rounded"],
-    TextTransform: props["ReserveNow.TextTransform"],
-  };
-
-  const titleTag = `h${title.Level}` as keyof React.JSX.IntrinsicElements;
-  const subtitleTag = `h${subTitle.Level}` as keyof React.JSX.IntrinsicElements;
-
-  const sectionStyle: React.CSSProperties = {
-    backgroundImage: `url(${BackGroundImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundColor: PrimaryColor,
-    boxShadow: props.BgShadowOnDeskTop
-      ? "0 4px 12px rgba(0,0,0,0.3)"
-      : undefined,
-  };
+export const HeroComponent: React.FC<HeroProps> = (props) => {
+  const TitleTag =
+    `h${props.Title?.level || 1}` as keyof React.JSX.IntrinsicElements;
+  const SubTitleTag =
+    `h${props.SubTitle?.level || 2}` as keyof React.JSX.IntrinsicElements;
 
   return (
     <section
-      style={sectionStyle}
-      className="relative w-full h-screen flex flex-col justify-center items-center p-8"
+      className="relative w-full h-[600px] bg-cover bg-center flex items-center"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+      }}
     >
-      {logo.OnDeskTopView && (
-        <img
-          src={props.LogoUrl}
-          alt="Logo"
-          className={cx(
-            LogoSizeToClass(logo.Size),
-            logo.DeskTopViewLeftSideLogo ? "float-left mr-4" : "mx-auto block",
-          )}
-        />
-      )}
-
-      {React.createElement(
-        titleTag,
-        {
-          className: cx(
-            TextSizeToClass(title.FontSize),
-            title.TextTransForm ? "uppercase" : "",
-            AlignClass(Align),
-            AlignMobileClass(AlignMobileView),
-            `text-[${SecondaryColor}]`,
-            "font-bold mb-2",
-          ),
-        },
-        "Your Hero Title",
-      )}
-
-      {React.createElement(
-        subtitleTag,
-        {
-          className: cx(
-            TextSizeToClass(subTitle.FontSize),
-            subTitle.TextTransForm ? "uppercase" : "",
-            AlignClass(Align),
-            AlignMobileClass(AlignMobileView),
-            `text-[${SecondaryColor}]`,
-            "mb-6",
-          ),
-        },
-        "Your Subtitle Text",
+      {props.BgShadowOnDeskTop && (
+        <div className="absolute inset-0 bg-black/30"></div>
       )}
 
       <div
-        className={cx("flex space-x-4", {
-          "justify-start": appButtons.align === "left",
-          "justify-center": appButtons.align === "center",
-          "justify-end": appButtons.align === "right",
-        })}
+        className={cx(
+          "relative z-10 container mx-auto px-6",
+          props.Align && "text-center",
+          !props.Align && "text-left",
+        )}
       >
-        <button
-          style={{ borderColor: orderNow.BorderColor, color: SecondaryColor }}
-          className={cx(
-            BorderWidthClass(orderNow.Border),
-            ButtonSizeClass(orderNow.Size),
-            ButtonShapeClass(orderNow.Shape, orderNow.Rounded),
-            orderNow.TextTransform ? "uppercase" : "",
-            "border transition-colors duration-300",
-          )}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.color = orderNow.HoverTextColor)
-          }
-          onMouseLeave={(e) => (e.currentTarget.style.color = SecondaryColor)}
-        >
-          Order Now
-        </button>
+        {/* Logo */}
+        {props.Logo?.onDeskTopView && (
+          <div
+            className={cx(
+              "flex items-center mb-4",
+              props.Logo.desktopViewLeftSideLogo
+                ? "justify-start"
+                : "justify-center",
+            )}
+          >
+            <img
+              src={logo}
+              className={cx(
+                props.Logo.size === "L" && "w-20",
+                props.Logo.size === "M" && "w-14",
+                props.Logo.size === "S" && "w-10",
+              )}
+            />
+          </div>
+        )}
 
-        <button
-          style={{
-            backgroundColor: reserveNow.BackGroundColor,
-            color: reserveNow.TextColor,
-            borderColor: reserveNow.BorderColor,
-          }}
+        {/* Title */}
+        <TitleTag
           className={cx(
-            BorderWidthClass(reserveNow.Border),
-            ButtonSizeClass(reserveNow.Size),
-            ButtonShapeClass(reserveNow.Shape, reserveNow.Rounded),
-            reserveNow.TextTransform ? "uppercase" : "",
-            "border transition-colors duration-300",
+            "font-bold",
+            props.Title?.fontSize === "L" && "text-5xl",
+            props.Title?.fontSize === "M" && "text-4xl",
+            props.Title?.fontSize === "S" && "text-3xl",
+
+            props.Title?.textTransform && "uppercase",
+          )}
+          style={{ color: props.PrimaryColor }}
+        >
+          Test Dev Shop
+        </TitleTag>
+
+        {/* Subtitle */}
+        <SubTitleTag
+          className={cx(
+            "mt-2 text-gray-200",
+            props.SubTitle?.fontSize === "L" && "text-xl",
+            props.SubTitle?.fontSize === "M" && "text-lg",
+            props.SubTitle?.fontSize === "S" && "text-md",
+            props.SubTitle?.textTransform && "uppercase",
+          )}
+          style={{ color: props.SecondaryColor }}
+        >
+          Asian Fine Dining & Outdoor Shisha Lounge in USA Lounge in USA
+        </SubTitleTag>
+
+        {/* Buttons */}
+        <div className="flex gap-4 mt-6">
+          {/* Order Now */}
+          <button
+            className={cx(
+              "px-6 py-3 font-semibold transition",
+              props.OrderNow?.size === "sm" && "text-sm",
+              props.OrderNow?.size === "md" && "text-base",
+              props.OrderNow?.size === "lg" && "text-lg",
+              props.OrderNow?.rounded === "sm" && "rounded",
+              props.OrderNow?.rounded === "md" && "rounded-md",
+              props.OrderNow?.rounded === "lg" && "rounded-lg",
+            )}
+            style={{
+              background: props.PrimaryColor,
+              border: `${props.OrderNow?.border}px solid ${props.OrderNow?.borderColor}`,
+            }}
+          >
+            Order Now
+          </button>
+
+          {/* Reserve Now */}
+          <button
+            className={cx(
+              "px-6 py-3 font-semibold bg-white transition",
+              props.ReserveNow?.size === "sm" && "text-sm",
+              props.ReserveNow?.size === "md" && "text-base",
+              props.ReserveNow?.size === "lg" && "text-lg",
+              props.ReserveNow?.rounded === "sm" && "rounded",
+              props.ReserveNow?.rounded === "md" && "rounded-md",
+              props.ReserveNow?.rounded === "lg" && "rounded-lg",
+            )}
+            style={{
+              border: `${props.ReserveNow?.border}px solid ${props.ReserveNow?.borderColor}`,
+            }}
+          >
+            Reserve Now
+          </button>
+        </div>
+
+        {/* App Store Buttons */}
+        <div
+          className={cx(
+            "flex gap-3 mt-6",
+            props.AppButtons?.Align === "left" && "justify-start",
+            props.AppButtons?.Align === "center" && "justify-center",
+            props.AppButtons?.Align === "right" && "justify-end",
           )}
         >
-          Reserve Now
-        </button>
+          <img src="/playstore.png" className="w-10" />
+          <img src="/applestore.png" className="w-10" />
+        </div>
       </div>
     </section>
   );
-}
+};

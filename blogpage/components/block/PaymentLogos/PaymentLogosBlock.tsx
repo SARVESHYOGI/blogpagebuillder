@@ -1,27 +1,39 @@
 import { ComponentConfig } from "@puckeditor/core";
 import { PaymentLogos, PaymentLogosProps } from "./PaymentLogos";
 
-export const PaymentLogosBlock: ComponentConfig<
-  React.PropsWithChildren<PaymentLogosProps>
-> = {
+export const PaymentLogosBlock: ComponentConfig<PaymentLogosProps> = {
   fields: {
     primaryColor: { type: "text" },
 
     secondaryColor: { type: "text" },
 
     paymentLogos: {
+      label: "Payment",
       type: "array",
+      getItemSummary: (item) => item.logo,
+      defaultItemProps: {
+        logo: "gpay",
+      },
       arrayFields: {
-        logo: { type: "text" },
+        logo: {
+          label: "Payment Logo",
+          type: "select",
+          options: [
+            { label: "Apple Pay", value: "applepay" },
+            { label: "Google Pay", value: "gpay" },
+            { label: "PayPal", value: "paypal" },
+            { label: "Visa", value: "visa" },
+          ],
+        },
       },
     },
 
     iconSize: {
       type: "radio",
       options: [
-        { label: "L", value: "L" },
-        { label: "M", value: "M" },
-        { label: "S", value: "S" },
+        { label: "Large", value: "L" },
+        { label: "Medium", value: "M" },
+        { label: "Small", value: "S" },
       ],
     },
 
@@ -32,11 +44,7 @@ export const PaymentLogosBlock: ComponentConfig<
     primaryColor: "#F59E0B",
     secondaryColor: "#78350F",
 
-    paymentLogos: [
-      { logo: "/gpay.png" },
-      { logo: "/visa.png" },
-      { logo: "/applepay.png" },
-    ],
+    paymentLogos: [{ logo: "gpay" }, { logo: "visa" }, { logo: "applepay" }],
 
     iconSize: "M",
 

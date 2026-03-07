@@ -1,3 +1,5 @@
+import { data } from "../../../db";
+
 export interface AboutUsCardProps {
   primaryColor: string;
   secondaryColor: string;
@@ -78,11 +80,6 @@ export function AboutUsCard(props: AboutUsCardProps) {
     center: "text-center",
   };
 
-  const alignImages = {
-    start: "justify-start",
-    end: "justify-end",
-  };
-
   return (
     <section
       style={{
@@ -92,43 +89,103 @@ export function AboutUsCard(props: AboutUsCardProps) {
       }}
       className="w-full px-6 py-20"
     >
-      <div className="max-w-6xl mx-auto grid grid-cols-2 gap-12 items-center">
-        {/* TEXT SECTION */}
-        <div className={alignText[props.alignText]}>
-          <h2
-            className={`${headingSize[props.heading.size]} font-bold mb-6`}
-            style={{
-              color: props.secondaryColor,
-              textTransform: props.heading.textTransform,
-            }}
-          >
-            About us
-          </h2>
+      {/* ---------------- TEMPLATE 1 ---------------- */}
+      {props.aboutUsTemplate === "TEMPLATE 1" && (
+        <div className="max-w-6xl mx-auto grid grid-cols-2 gap-12 items-center">
+          {/* TEXT */}
+          <div className={alignText[props.alignText]}>
+            <h2
+              className={`${headingSize[props.heading?.size]} font-bold mb-6`}
+              style={{
+                color: props.secondaryColor,
+                textTransform: props.heading?.textTransform,
+              }}
+            >
+              About Us
+            </h2>
 
-          <p className={`${descriptionSize[props.descriptionSize]} mb-6`}>
-            Lorem ipsum dolor sit amet, consectetur domino act Lorem ipsum dolor
-            sit amet, consectetur domino act Lorem ipsum dolor sit amet.
-          </p>
+            <p className={`${descriptionSize[props.descriptionSize]} mb-6`}>
+              {data.display_description}
+            </p>
 
-          <button
-            style={{
-              background: props.viewGalleryButton.backgroundColor,
-              color: props.viewGalleryButton.textColor,
-              borderColor: props.viewGalleryButton.borderColor,
-            }}
-            className={`${buttonSize[props.viewGalleryButton.size]} 
-            ${buttonShape[props.viewGalleryButton.shape]} 
-            ${borderSize[props.viewGalleryButton.border]} font-semibold`}
-          >
-            View Gallery
-          </button>
+            <button
+              style={{
+                background: props.viewGalleryButton?.backgroundColor,
+                color: props.viewGalleryButton?.textColor,
+                borderColor: props.viewGalleryButton?.borderColor,
+              }}
+              className={`${buttonSize[props.viewGalleryButton?.size]} 
+              ${buttonShape[props.viewGalleryButton?.shape]} 
+              ${borderSize[props.viewGalleryButton?.border]} font-semibold`}
+            >
+              View Gallery
+            </button>
+          </div>
+
+          {/* IMAGE SIDE */}
+          <div className="flex flex-col items-center gap-6">
+            <img src={data.shop_images[0].uri} className="w-32 opacity-70" />
+
+            <img
+              src={data.shop_images[1].uri}
+              className="rounded-lg w-[400px]"
+            />
+          </div>
         </div>
+      )}
 
-        {/* IMAGE SECTION */}
-        <div className={`flex ${alignImages[props.alignImages]}`}>
-          <img src="/about-food.jpg" className="rounded-lg w-[400px]" />
+      {/* ---------------- TEMPLATE 2 ---------------- */}
+      {props.aboutUsTemplate === "TEMPLATE 2" && (
+        <div className="max-w-6xl mx-auto grid grid-cols-3 gap-12 items-center">
+          {/* TEXT */}
+          <div className={alignText[props.alignText]}>
+            <h2
+              className={`${headingSize[props.heading?.size]} font-bold mb-6`}
+              style={{
+                color: props.secondaryColor,
+                textTransform: props.heading?.textTransform,
+              }}
+            >
+              About Us
+            </h2>
+
+            <p className={`${descriptionSize[props.descriptionSize]} mb-6`}>
+              {data.display_description}
+            </p>
+
+            <button
+              style={{
+                background: props.viewGalleryButton?.backgroundColor,
+                color: props.viewGalleryButton?.textColor,
+                borderColor: props.viewGalleryButton?.borderColor,
+              }}
+              className={`${buttonSize[props.viewGalleryButton?.size]} 
+              ${buttonShape[props.viewGalleryButton?.shape]} 
+              ${borderSize[props.viewGalleryButton?.border]} font-semibold`}
+            >
+              View Gallery
+            </button>
+          </div>
+
+          {/* CENTER ICON */}
+          <div className="flex justify-center">
+            <img src={data.shop_images[0].uri} className="w-32 opacity-80" />
+          </div>
+
+          {/* IMAGE STACK */}
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src={data.shop_images[2].uri}
+              className="rounded-lg object-cover"
+            />
+
+            <img
+              src={data.shop_images[3].uri}
+              className="rounded-lg object-cover"
+            />
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

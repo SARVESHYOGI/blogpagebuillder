@@ -1,4 +1,5 @@
 import { cx } from "class-variance-authority";
+import { data } from "../../../db";
 
 export interface NavigationBarProps {
   BackgroundColor?: string;
@@ -7,11 +8,11 @@ export interface NavigationBarProps {
   GapFromBottom?: number;
   BackgroundStyle?: "solid" | "blur" | "transparent";
   Sticky?: boolean;
-  Logo?: string;
   ShowLogo?: boolean;
   LogoSize?: "sm" | "md" | "lg";
 }
 
+const Logo = data.shop_images[0].uri;
 export function NavigationBar({
   BackgroundColor = "white",
   TextIconColor = "black",
@@ -21,7 +22,6 @@ export function NavigationBar({
   Sticky = false,
   ShowLogo = false,
   LogoSize = "md",
-  Logo,
 }: NavigationBarProps) {
   const backgroundClass = cx({
     "bg-white": BackgroundStyle === "solid",

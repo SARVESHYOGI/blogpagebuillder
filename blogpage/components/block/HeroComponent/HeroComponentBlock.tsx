@@ -1,308 +1,325 @@
-import { ComponentConfig, DropZone } from "@puckeditor/core";
+import { ComponentConfig } from "@puckeditor/core";
 import { HeroComponent, HeroProps } from "./HeroComponent";
 
-export const HeroComponentBlock: ComponentConfig<
-  React.PropsWithChildren<HeroProps>
-> = {
+export const HeroComponentBlock: ComponentConfig<HeroProps> = {
   fields: {
-    PrimaryColor: { type: "text", label: "Primary Background Color" },
-    SecondaryColor: { type: "text", label: "Text / Accent Color" },
+    PrimaryColor: {
+      type: "text",
+      label: "Primary Color",
+    },
+
+    SecondaryColor: {
+      type: "text",
+      label: "Secondary Color",
+    },
+
     Align: {
       type: "radio",
-      label: "Center Title & Subtitle?",
+      label: "Text Alignment",
       options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
+        { label: "Left", value: false },
+        { label: "Center", value: true },
       ],
     },
+
     AlignMobileView: {
       type: "radio",
-      label: "Center on Mobile?",
+      label: "Mobile Alignment",
       options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
-    },
-
-    // AppButtons
-    AppButtonsAlign: {
-      type: "select",
-      label: "Buttons Alignment",
-      options: [
-        { label: "Left", value: "left" },
-        { label: "Center", value: "center" },
-        { label: "Right", value: "right" },
-      ],
-    },
-    AppButtonsShape: {
-      type: "select",
-      label: "Buttons Shape",
-      options: [
-        { label: "Square", value: "square" },
-        { label: "Rounded", value: "rounded" },
-        { label: "Pill", value: "pill" },
-      ],
-    },
-
-    BackGroundImage: { type: "text", label: "Background Image URL" },
-    LogoUrl: { type: "text", label: "Logo Image URL" },
-
-    // Logo
-    "Logo.OnDeskTopView": {
-      type: "radio",
-      label: "Show Logo on Desktop?",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
-    },
-    "Logo.Size": {
-      type: "select",
-      label: "Logo Size",
-      options: [
-        { label: "Small", value: "sm" },
-        { label: "Medium", value: "md" },
-        { label: "Large", value: "lg" },
-      ],
-    },
-    "Logo.DeskTopViewLeftSideLogo": {
-      type: "radio",
-      label: "Logo on Left Side on Desktop?",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
+        { label: "Left", value: false },
+        { label: "Center", value: true },
       ],
     },
 
     BgShadowOnDeskTop: {
       type: "radio",
-      label: "Enable Shadow on Desktop?",
+      label: "Background Shadow",
       options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
+        { label: "Off", value: false },
+        { label: "On", value: true },
       ],
     },
 
-    // Title
-    "Title.FontSize": {
-      type: "select",
-      label: "Title Font Size",
-      options: [
-        { label: "Small", value: "sm" },
-        { label: "Medium", value: "md" },
-        { label: "Large", value: "lg" },
-      ],
-    },
-    "Title.Level": {
-      type: "select",
-      label: "Title Heading Level",
-      options: [
-        { label: "H1", value: "1" },
-        { label: "H2", value: "2" },
-        { label: "H3", value: "3" },
-        { label: "H4", value: "4" },
-        { label: "H5", value: "5" },
-        { label: "H6", value: "6" },
-      ],
-    },
-    "Title.TextTransForm": {
-      type: "radio",
-      label: "Uppercase Title?",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
+    Logo: {
+      type: "object",
+      label: "Logo Settings",
+      objectFields: {
+        onDeskTopView: {
+          type: "radio",
+          label: "Show Logo",
+          options: [
+            { label: "Yes", value: true },
+            { label: "No", value: false },
+          ],
+        },
+
+        size: {
+          type: "select",
+          label: "Logo Size",
+          options: [
+            { label: "Large", value: "L" },
+            { label: "Medium", value: "M" },
+            { label: "Small", value: "S" },
+          ],
+        },
+
+        desktopViewLeftSideLogo: {
+          type: "radio",
+          label: "Logo Position",
+          options: [
+            { label: "Left", value: true },
+            { label: "Center", value: false },
+          ],
+        },
+      },
     },
 
-    // SubTitle
-    "SubTitle.FontSize": {
-      type: "select",
-      label: "Subtitle Font Size",
-      options: [
-        { label: "Small", value: "sm" },
-        { label: "Medium", value: "md" },
-        { label: "Large", value: "lg" },
-        { label: "XL", value: "xl" },
-        { label: "2XL", value: "2xl" },
-      ],
-    },
-    "SubTitle.Level": {
-      type: "select",
-      label: "Subtitle Heading Level",
-      options: [
-        { label: "H1", value: "1" },
-        { label: "H2", value: "2" },
-        { label: "H3", value: "3" },
-        { label: "H4", value: "4" },
-        { label: "H5", value: "5" },
-        { label: "H6", value: "6" },
-      ],
-    },
-    "SubTitle.TextTransForm": {
-      type: "radio",
-      label: "Uppercase Subtitle?",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
+    Title: {
+      type: "object",
+      label: "Title",
+      objectFields: {
+        fontSize: {
+          type: "select",
+          options: [
+            { label: "Large", value: "L" },
+            { label: "Medium", value: "M" },
+            { label: "Small", value: "S" },
+          ],
+        },
+
+        level: {
+          type: "select",
+          options: [
+            { label: "H1", value: 1 },
+            { label: "H2", value: 2 },
+            { label: "H3", value: 3 },
+            { label: "H4", value: 4 },
+          ],
+        },
+
+        textTransform: {
+          type: "radio",
+          options: [
+            { label: "Normal", value: false },
+            { label: "Uppercase", value: true },
+          ],
+        },
+      },
     },
 
-    // Order Now Button
-    "OrderNow.HoverTextColor": {
-      type: "text",
-      label: "Order Now Hover Text Color",
-    },
-    "OrderNow.Size": {
-      type: "select",
-      label: "Order Now Button Size",
-      options: [
-        { label: "Small", value: "sm" },
-        { label: "Medium", value: "md" },
-        { label: "Large", value: "lg" },
-      ],
-    },
-    "OrderNow.Shape": {
-      type: "radio",
-      label: "Round Order Now Button?",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
-    },
-    "OrderNow.Border": {
-      type: "select",
-      label: "Order Now Border Width",
-      options: [
-        { label: "1", value: "1" },
-        { label: "2", value: "2" },
-        { label: "3", value: "3" },
-        { label: "4", value: "4" },
-        { label: "5", value: "5" },
-      ],
-    },
-    "OrderNow.BorderColor": {
-      type: "text",
-      label: "Order Now Border Color",
-    },
-    "OrderNow.Rounded": {
-      type: "select",
-      label: "Order Now Border Radius",
-      options: [
-        { label: "Small", value: "sm" },
-        { label: "Medium", value: "md" },
-        { label: "Large", value: "lg" },
-      ],
-    },
-    "OrderNow.TextTransform": {
-      type: "radio",
-      label: "Uppercase Order Now?",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
+    SubTitle: {
+      type: "object",
+      label: "Subtitle",
+      objectFields: {
+        fontSize: {
+          type: "select",
+          options: [
+            { label: "Large", value: "L" },
+            { label: "Medium", value: "M" },
+            { label: "Small", value: "S" },
+          ],
+        },
+
+        level: {
+          type: "select",
+          options: [
+            { label: "H2", value: 2 },
+            { label: "H3", value: 3 },
+            { label: "H4", value: 4 },
+          ],
+        },
+
+        textTransform: {
+          type: "radio",
+          options: [
+            { label: "Normal", value: false },
+            { label: "Uppercase", value: true },
+          ],
+        },
+      },
     },
 
-    // Reserve Now Button
-    "ReserveNow.BackGroundColor": {
-      type: "text",
-      label: "Reserve Now Background Color",
+    AppButtons: {
+      type: "object",
+      label: "App Buttons",
+      objectFields: {
+        Align: {
+          type: "select",
+          options: [
+            { label: "Left", value: "left" },
+            { label: "Center", value: "center" },
+            { label: "Right", value: "right" },
+          ],
+        },
+
+        Shape: {
+          type: "radio",
+          options: [
+            { label: "Rounded", value: true },
+            { label: "Square", value: false },
+          ],
+        },
+      },
     },
-    "ReserveNow.TextColor": {
-      type: "text",
-      label: "Reserve Now Text Color",
+    OrderNow: {
+      type: "object",
+      objectFields: {
+        hoverTextColor: { type: "text", label: "Hover Text Color" },
+
+        size: {
+          type: "select",
+          options: [
+            { label: "Small", value: "sm" },
+            { label: "Medium", value: "md" },
+            { label: "Large", value: "lg" },
+          ],
+        },
+
+        shape: {
+          type: "select",
+          options: [
+            { label: "Square", value: "square" },
+            { label: "Rounded", value: "rounded" },
+          ],
+        },
+
+        border: {
+          type: "select",
+          options: [
+            { label: "1px", value: "1" },
+            { label: "2px", value: "2" },
+            { label: "3px", value: "3" },
+          ],
+        },
+
+        borderColor: { type: "text", label: "Border Color" },
+
+        rounded: {
+          type: "select",
+          options: [
+            { label: "Small", value: "sm" },
+            { label: "Medium", value: "md" },
+            { label: "Large", value: "lg" },
+          ],
+        },
+
+        textTransform: {
+          type: "radio",
+          options: [
+            { label: "Normal", value: false },
+            { label: "Uppercase", value: true },
+          ],
+        },
+      },
     },
-    "ReserveNow.Size": {
-      type: "select",
-      label: "Reserve Now Button Size",
-      options: [
-        { label: "Small", value: "sm" },
-        { label: "Medium", value: "md" },
-        { label: "Large", value: "lg" },
-      ],
-    },
-    "ReserveNow.Shape": {
-      type: "radio",
-      label: "Round Reserve Now Button?",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
-    },
-    "ReserveNow.Border": {
-      type: "select",
-      label: "Reserve Now Border Width",
-      options: [
-        { label: "1", value: "1" },
-        { label: "2", value: "2" },
-        { label: "3", value: "3" },
-        { label: "4", value: "4" },
-        { label: "5", value: "5" },
-      ],
-    },
-    "ReserveNow.BorderColor": {
-      type: "text",
-      label: "Reserve Now Border Color",
-    },
-    "ReserveNow.Rounded": {
-      type: "select",
-      label: "Reserve Now Border Radius",
-      options: [
-        { label: "Small", value: "sm" },
-        { label: "Medium", value: "md" },
-        { label: "Large", value: "lg" },
-      ],
-    },
-    "ReserveNow.TextTransform": {
-      type: "radio",
-      label: "Uppercase Reserve Now?",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
+
+    ReserveNow: {
+      type: "object",
+      objectFields: {
+        hoverTextColor: { type: "text", label: "Hover Text Color" },
+
+        size: {
+          type: "select",
+          options: [
+            { label: "Small", value: "sm" },
+            { label: "Medium", value: "md" },
+            { label: "Large", value: "lg" },
+          ],
+        },
+
+        shape: {
+          type: "select",
+          options: [
+            { label: "Square", value: "square" },
+            { label: "Rounded", value: "rounded" },
+          ],
+        },
+
+        border: {
+          type: "select",
+          options: [
+            { label: "1px", value: "1" },
+            { label: "2px", value: "2" },
+            { label: "3px", value: "3" },
+          ],
+        },
+
+        borderColor: { type: "text", label: "Border Color" },
+
+        rounded: {
+          type: "select",
+          options: [
+            { label: "Small", value: "sm" },
+            { label: "Medium", value: "md" },
+            { label: "Large", value: "lg" },
+          ],
+        },
+
+        textTransform: {
+          type: "radio",
+          options: [
+            { label: "Normal", value: false },
+            { label: "Uppercase", value: true },
+          ],
+        },
+      },
     },
   },
 
   defaultProps: {
-    PrimaryColor: "#ffffff",
-    SecondaryColor: "#1a202c",
-    Align: true,
+    PrimaryColor: "#F5C96B",
+    SecondaryColor: "#ffffff",
+
+    Align: false,
     AlignMobileView: true,
-    AppButtonsAlign: "center",
-    AppButtonsShape: "pill",
-    BackGroundImage: "",
-    LogoUrl: "/logo.png",
-    "Logo.OnDeskTopView": true,
-    "Logo.Size": "md",
-    "Logo.DeskTopViewLeftSideLogo": true,
+
     BgShadowOnDeskTop: true,
-    "Title.FontSize": "lg",
-    "Title.Level": "1",
-    "Title.TextTransForm": false,
-    "SubTitle.FontSize": "xl",
-    "SubTitle.Level": "2",
-    "SubTitle.TextTransForm": false,
-    "OrderNow.HoverTextColor": "#ffffff",
-    "OrderNow.Size": "md",
-    "OrderNow.Shape": true,
-    "OrderNow.Border": "2",
-    "OrderNow.BorderColor": "#000000",
-    "OrderNow.Rounded": "md",
-    "OrderNow.TextTransform": false,
-    "ReserveNow.BackGroundColor": "#000000",
-    "ReserveNow.TextColor": "#ffffff",
-    "ReserveNow.Size": "md",
-    "ReserveNow.Shape": true,
-    "ReserveNow.Border": "2",
-    "ReserveNow.BorderColor": "#000000",
-    "ReserveNow.Rounded": "md",
-    "ReserveNow.TextTransform": false,
+
+    Logo: {
+      onDeskTopView: true,
+      size: "S",
+      desktopViewLeftSideLogo: true,
+    },
+
+    Title: {
+      fontSize: "L",
+      level: 1,
+      textTransform: false,
+    },
+
+    SubTitle: {
+      fontSize: "M",
+      level: 3,
+      textTransform: false,
+    },
+
+    AppButtons: {
+      Align: "left",
+      Shape: true,
+    },
+
+    OrderNow: {
+      hoverTextColor: "#000",
+      size: "md",
+      shape: "rounded",
+      border: "1",
+      borderColor: "#F5C96B",
+      rounded: "lg",
+      textTransform: false,
+    },
+
+    ReserveNow: {
+      hoverTextColor: "#000",
+      size: "md",
+      shape: "rounded",
+      border: "1",
+      borderColor: "#fff",
+      rounded: "lg",
+      textTransform: false,
+    },
   },
 
-  render(props: HeroProps) {
-    return (
-      <HeroComponent {...props}>
-        <DropZone zone="hero" />
-      </HeroComponent>
-    );
+  render: (props) => {
+    return <HeroComponent {...props} />;
   },
 };

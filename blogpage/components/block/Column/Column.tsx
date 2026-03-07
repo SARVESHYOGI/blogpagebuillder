@@ -1,32 +1,39 @@
-import { cx } from "class-variance-authority";
+import { DropZone } from "@puckeditor/core";
 
 export interface ColumnProps {
-  colsS?: number;
-  colsM?: number;
-  colsL?: number;
+  Distribution?: boolean;
+  columns?: {
+    span?: number;
+  }[];
 }
 
-export function Column({
-  children,
-  colsL = 12,
-  colsM = 6,
-  colsS = 2,
-}: React.PropsWithChildren<ColumnProps>) {
+export function Column({ Distribution = true, columns = [] }: ColumnProps) {
+  const count = columns.length || 1;
+
   return (
     <div
-      data-type="column"
-      style={
-        {
-          "--cols-s": colsS,
-          "--cols-m": colsM,
-          "--cols-l": colsL,
-        } as React.CSSProperties
-      }
-      className={cx(
-        "col-[span_var(--cols-s)/span_var(--cols-s)] md:col-[span_var(--cols-m)/span_var(--cols-m)] lg:col-[span_var(--cols-l)/span_var(--cols-l)]",
-      )}
+      style={{
+        display: "grid",
+        gridTemplateColumns: Distribution
+          ? `repeat(${count}, 1fr)`
+          : "repeat(12, 1fr)",
+        gap: 16,
+      }}
     >
-      {children}
+      {columns.map((col, index) => (
+        <div
+          key={index}
+          style={{
+            gridColumn:
+              !Distribution && col.span ? `span ${col.span}` : undefined,
+            minHeight: 120,
+            border: "1px dashed #ccc",
+            padding: 16,
+          }}
+        >
+          <DropZone zone={`column-${index}`} />
+        </div>
+      ))}
     </div>
   );
 }

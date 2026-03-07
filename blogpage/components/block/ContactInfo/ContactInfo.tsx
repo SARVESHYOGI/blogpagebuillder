@@ -17,24 +17,24 @@ export interface ContactInfoProps {
 
 export function ContactInfo({
   PrimaryColor = "#ffffff",
-  SecondaryColor = "#000000",
+  SecondaryColor = "#e89aa6",
   GapFromTop = 0,
   GapFromBottom = 0,
   Layout = "stacked",
   HeadingText = "Contact Us",
-  HeadingSize = "lg",
-  HeadingWeight = "4",
+  HeadingSize = "2xl",
+  HeadingWeight = "6",
   ShowPhone = true,
   ShowEmail = true,
   ShowAddres = true,
   ShowSocials = true,
 }: ContactInfoProps) {
   const headingSizeClass = {
-    sm: "text-sm",
-    md: "text-lg",
-    lg: "text-xl",
-    xl: "text-2xl",
-    "2xl": "text-3xl",
+    sm: "text-lg",
+    md: "text-xl",
+    lg: "text-2xl",
+    xl: "text-3xl",
+    "2xl": "text-4xl",
   };
 
   const headingWeightClass = {
@@ -47,13 +47,15 @@ export function ContactInfo({
   };
 
   const layoutClass = cx({
-    "flex flex-col space-y-4": Layout === "stacked",
-    "flex flex-row space-x-8": Layout === "Row",
+    "flex flex-col items-center space-y-4": Layout === "stacked",
+    "flex flex-row justify-center space-x-10": Layout === "Row",
     "grid grid-cols-1 md:grid-cols-3 gap-6": Layout === "Cards",
   });
 
   const cardClass =
-    Layout === "Cards" ? "p-4 border rounded-lg shadow-sm text-center" : "";
+    Layout === "Cards"
+      ? "p-4 border rounded-lg shadow-sm text-center"
+      : "flex items-center gap-3";
 
   return (
     <section
@@ -63,9 +65,9 @@ export function ContactInfo({
         backgroundColor: PrimaryColor,
         color: SecondaryColor,
       }}
-      className="px-6 py-8"
+      className="px-6 py-16 text-center"
     >
-      {/* Heading */}
+      {/* HEADING */}
       <h2
         className={cx(
           "mb-6",
@@ -76,37 +78,44 @@ export function ContactInfo({
         {HeadingText}
       </h2>
 
-      {/* Content */}
+      {/* CONTACT CONTENT */}
       <div className={layoutClass}>
         {ShowPhone && (
           <div className={cardClass}>
-            <p className="font-semibold">Phone</p>
-            <p>+1 (555) 123-4567</p>
+            <span>📞</span>
+            <span>491511234599</span>
           </div>
         )}
 
         {ShowEmail && (
           <div className={cardClass}>
-            <p className="font-semibold">Email</p>
-            <p>contact@example.com</p>
+            <span>✉️</span>
+            <span>md@tes.com</span>
           </div>
         )}
 
         {ShowAddres && (
           <div className={cardClass}>
-            <p className="font-semibold">Address</p>
-            <p>123 Main Street, City</p>
+            <span>📍</span>
+            <span>Am Dreispitz 3, 63741 Aschaffenburg, Germany</span>
           </div>
         )}
 
+        {/* SOCIAL ICONS */}
         {ShowSocials && (
-          <div className={cardClass}>
-            <p className="font-semibold">Social</p>
-            <div className="flex justify-center space-x-4 mt-2">
-              <span>🔵 abcdefghijklmnop</span>
-              <span>🐦 abcdefghijklmnop</span>
-              <span>📸 abcdefghijklmnop</span>
-            </div>
+          <div className="flex justify-center gap-4 mt-6">
+            {["F", "I", "T", "Y", "W"].map((item, i) => (
+              <div
+                key={i}
+                className="w-10 h-10 rounded-full flex items-center justify-center font-semibold"
+                style={{
+                  background: SecondaryColor,
+                  color: PrimaryColor,
+                }}
+              >
+                {item}
+              </div>
+            ))}
           </div>
         )}
       </div>

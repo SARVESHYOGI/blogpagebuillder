@@ -1,15 +1,30 @@
+import { StaticImageData } from "next/dist/shared/lib/image-external";
+
+type PaymentLogo = "applepay" | "gpay" | "paypal" | "visa";
+
 export interface PaymentLogosProps {
   primaryColor: string;
   secondaryColor: string;
 
   paymentLogos: {
-    logo: string;
+    logo: PaymentLogo;
   }[];
 
   iconSize: "L" | "M" | "S";
 
   backgroundColor: string;
 }
+
+const logoMap: Record<string, string> = {
+  applepay: "/apple_pay_logo.svg",
+  gpay: "/google_pay_logo.svg",
+  paypal: "/paypal_logo.svg",
+  visa: "/visa_logo.svg",
+};
+
+const findImage = (logo: PaymentLogo): string => {
+  return logoMap[logo];
+};
 
 export function PaymentLogos(props: PaymentLogosProps) {
   const iconSize = {
@@ -29,9 +44,9 @@ export function PaymentLogos(props: PaymentLogosProps) {
         {props.paymentLogos.map((item, i) => (
           <img
             key={i}
-            src={item.logo}
+            src={findImage(item.logo)}
             className={iconSize[props.iconSize]}
-            alt="payment logo"
+            alt={item.logo}
           />
         ))}
       </div>

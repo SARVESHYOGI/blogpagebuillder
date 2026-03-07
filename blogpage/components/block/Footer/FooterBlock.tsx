@@ -37,7 +37,6 @@ export const FooterBlock: ComponentConfig<
         { label: "No", value: false },
       ],
     },
-    Logo: { type: "text" },
 
     // links is an array of objects with label and href
     links: {
@@ -59,7 +58,6 @@ export const FooterBlock: ComponentConfig<
     ShowLogo: false,
     ShowSocials: false,
     ShowContact: false,
-    Logo: "/logo.png",
     links: [
       { label: "Terms", href: "#" },
       { label: "Privacy", href: "#" },

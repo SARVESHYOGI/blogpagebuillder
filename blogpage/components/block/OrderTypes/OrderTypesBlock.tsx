@@ -5,7 +5,6 @@ export const OrderTypesBlock: ComponentConfig<
   React.PropsWithChildren<OrderTypesProps>
 > = {
   fields: {
-    backgroundImage: { type: "text" },
     gapFromTop: { type: "number" },
     gapFromBottom: { type: "number" },
 
@@ -25,7 +24,6 @@ export const OrderTypesBlock: ComponentConfig<
   },
 
   defaultProps: {
-    backgroundImage: "/public/order-bg.jpg",
     gapFromTop: 100,
     gapFromBottom: 0,
 

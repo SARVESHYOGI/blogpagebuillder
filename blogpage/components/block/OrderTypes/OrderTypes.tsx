@@ -1,9 +1,10 @@
+import { data } from "../../../db";
+
 export interface OrderTypeItem {
   value: "Delivery" | "Pickup" | "Reservation";
 }
 
 export interface OrderTypesProps {
-  backgroundImage?: string;
   gapFromTop: number;
   gapFromBottom: number;
   orderTypes: OrderTypeItem[];
@@ -11,9 +12,9 @@ export interface OrderTypesProps {
 
 export function OrderType(props: OrderTypesProps) {
   const iconMap = {
-    Delivery: "/public/image.png",
-    Pickup: "/public/image.png",
-    Reservation: "/public/image.png",
+    Delivery: data.shop_images[3].uri,
+    Pickup: data.shop_images[4].uri,
+    Reservation: data.shop_images[5].uri,
   };
 
   return (
@@ -24,17 +25,31 @@ export function OrderType(props: OrderTypesProps) {
       }}
       className="relative w-full"
     >
+      {/* BACKGROUND */}
       <div
-        className="w-full py-16 bg-cover bg-center flex justify-center"
-        style={{ backgroundImage: `url('${props.backgroundImage}')` }}
+        className="relative w-full py-24 bg-cover bg-center"
+        style={{ backgroundImage: `url('${data.shop_images[1].uri}')` }}
       >
-        <div className="flex items-center gap-16">
+        {/* DARK OVERLAY */}
+        <div className="absolute inset-0 bg-black/60"></div>
+
+        {/* CONTENT */}
+        <div className="relative max-w-6xl mx-auto flex justify-center items-center">
           {props.orderTypes.map((item, i) => (
-            <div key={i} className="flex flex-col items-center text-white">
-              <img src={iconMap[item.value]} className="w-10 h-10 mb-2" />
-              <span className="tracking-widest text-sm uppercase">
-                {item.value}
-              </span>
+            <div key={i} className="flex items-center">
+              {/* ITEM */}
+              <div className="flex flex-col items-center text-white px-12">
+                <img src={iconMap[item.value]} className="w-14 h-14 mb-4" />
+
+                <span className="tracking-widest text-sm uppercase font-semibold">
+                  {item.value}
+                </span>
+              </div>
+
+              {/* DIVIDER */}
+              {i !== props.orderTypes.length - 1 && (
+                <div className="h-20 w-[1px] bg-white/40"></div>
+              )}
             </div>
           ))}
         </div>

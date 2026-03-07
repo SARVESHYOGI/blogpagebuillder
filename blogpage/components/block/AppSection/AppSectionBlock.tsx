@@ -17,6 +17,7 @@ export const AppSectionBlock: ComponentConfig<
       options: [
         { label: "Template 1", value: "Template1" },
         { label: "Template 2", value: "Template2" },
+        { label: "Template 3", value: "Template3" },
       ],
     },
 
