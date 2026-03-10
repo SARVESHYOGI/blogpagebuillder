@@ -16,9 +16,9 @@ export function LocationMap(props: LocationMapProps) {
   };
 
   const borderRadiusClass = {
-    small: "rounded-sm",
-    medium: "rounded-md",
-    large: "rounded-lg",
+    small: "rounded-xl",
+    medium: "rounded-3xl",
+    large: "rounded-4xl",
   };
 
   return (
@@ -28,14 +28,18 @@ export function LocationMap(props: LocationMapProps) {
         marginBottom: props.GapFromBottom,
       }}
       className={cx(
-        "overflow-hidden w-full",
+        "overflow-hidden w-full p-2",
         heightClass[props.MapHeight],
         borderRadiusClass[props.BorderRadius],
       )}
     >
       <iframe
         src={props.GoogleMapsEmbedUrl}
-        className="w-full h-full border-0"
+        className={cx(
+          "overflow-hidden p-2 w-full h-full border-0",
+          heightClass[props.MapHeight],
+          borderRadiusClass[props.BorderRadius],
+        )}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         allowFullScreen

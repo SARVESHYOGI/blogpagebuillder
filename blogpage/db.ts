@@ -912,4 +912,4 @@ export const data={
   }
 }
 
-console.log(data.shop_images);
+// console.log(data.shop_images);

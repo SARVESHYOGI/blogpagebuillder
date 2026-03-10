@@ -1,9 +1,22 @@
 import { ComponentConfig } from "@puckeditor/core";
 import { AboutUsCard, AboutUsCardProps } from "./AboutUs";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const AboutUsCardBlock: ComponentConfig<AboutUsCardProps> = {
   fields: {
-    primaryColor: { type: "text" },
+    primaryColor: {
+      type: "custom",
+      label: "Primary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Primary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
     secondaryColor: { type: "text" },
 
     gapFromTop: { type: "number" },

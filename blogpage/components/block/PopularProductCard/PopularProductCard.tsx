@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { data } from "../../../db";
+import useEmblaCarousel from "embla-carousel-react";
 export interface PopularProductCardProps {
   primaryColor: string;
   secondaryColor: string;
@@ -68,72 +69,61 @@ const dishes = [
     description:
       "Chicken fillet fried with bell pepper, onions and garlic in special red chili sauce",
     price: 12,
-    image: "/food.png",
+    image: "/assets/food.png",
   },
   {
     name: "Chili Chicken (spicy)",
     description:
       "Chicken fillet fried with bell pepper, onions and garlic in special red chili sauce",
     price: 12,
-    image: "/food.png",
+    image: "/assets/food.png",
   },
   {
     name: "Chili Chicken (spicy)",
     description:
       "Chicken fillet fried with bell pepper, onions and garlic in special red chili sauce",
     price: 12,
-    image: "/food.png",
+    image: "/assets/food.png",
   },
   {
     name: "Chili Chicken (spicy)",
     description:
       "Chicken fillet fried with bell pepper, onions and garlic in special red chili sauce",
     price: 12,
-    image: "/food.png",
+    image: "/assets/food.png",
   },
   {
     name: "Chili Chicken (spicy)",
     description:
       "Chicken fillet fried with bell pepper, onions and garlic in special red chili sauce",
     price: 12,
-    image: "/food.png",
+    image: "/assets/food.png",
   },
   {
     name: "Chili Chicken (spicy)",
     description:
       "Chicken fillet fried with bell pepper, onions and garlic in special red chili sauce",
     price: 12,
-    image: "/food.png",
+    image: "/assets/food.png",
   },
   {
     name: "Chili Chicken (spicy)",
     description:
       "Chicken fillet fried with bell pepper, onions and garlic in special red chili sauce",
     price: 12,
-    image: "/food.png",
+    image: "/assets/food.png",
   },
 ];
 
 export function PopularProductCard(props: PopularProductCardProps) {
-  const [startIndex, setStartIndex] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    loop: false,
+    duration: 10,
+  });
+  const scrollPrev = () => emblaApi?.scrollPrev();
+  const scrollNext = () => emblaApi?.scrollNext();
 
-  const itemsPerView = 4;
-
-  const nextSlide = () => {
-    console.log("btn right");
-    if (startIndex + itemsPerView < dishes.length) {
-      setStartIndex((prev) => prev + 1);
-    }
-  };
-
-  const prevSlide = () => {
-    console.log("btn left");
-    if (startIndex > 0) {
-      setStartIndex((prev) => prev - 1);
-    }
-  };
-
-  const visibleDishes = dishes.slice(startIndex, startIndex + itemsPerView);
   const headingSize = {
     L: "text-4xl",
     M: "text-3xl",
@@ -181,8 +171,17 @@ export function PopularProductCard(props: PopularProductCardProps) {
     S: "text-sm",
   };
 
-  const HeadingTag =
-    (`h${props.heading?.level}` as keyof React.JSX.IntrinsicElements) || "h2";
+  const headingLevel = ["1", "2", "3", "4"].includes(props.heading?.level || "")
+    ? props.heading.level
+    : "2";
+  const headingFontWeight: Record<string, string> = {
+    "1": "font-extrabold",
+    "2": "font-bold",
+    "3": "font-semibold",
+    "4": "font-medium",
+  };
+
+  const HeadingTag = `h${headingLevel}` as keyof React.JSX.IntrinsicElements;
 
   return (
     <section
@@ -194,14 +193,13 @@ export function PopularProductCard(props: PopularProductCardProps) {
       className="w-full py-20 px-6"
     >
       <div className="max-w-7xl mx-auto">
-        {/* HEADER */}
         <div className="relative mb-12">
           <HeadingTag
             className={`
       ${headingSize[props.heading?.size]}
       ${mobileAlign[props.heading?.alignOnMobile]}
       md:${headingAlign[props.heading?.align]}
-      font-bold
+      ${headingFontWeight[props.heading?.level]}
     `}
             style={{
               textTransform: props.heading?.textTransform,
@@ -212,9 +210,11 @@ export function PopularProductCard(props: PopularProductCardProps) {
           </HeadingTag>
 
           {/* ARROW BUTTONS */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 flex gap-3">
+          <div
+            className={`absolute right-0 top-1/2 -translate-y-1/2 flex gap-3 ${props.heading?.align === "right" ? "left-0" : "right-0"}`}
+          >
             <button
-              onClick={prevSlide}
+              onClick={scrollPrev}
               style={{
                 background: props.arrowButtons?.backgroundColor,
                 borderColor: props.arrowButtons?.borderColor,
@@ -223,14 +223,14 @@ export function PopularProductCard(props: PopularProductCardProps) {
               className={`
         ${arrowSize[props.arrowButtons?.size]}
         ${arrowShape[props.arrowButtons?.shape]}
-        flex items-center justify-center
+        flex items-center justify-center embla__prev
       `}
             >
               ←
             </button>
 
             <button
-              onClick={nextSlide}
+              onClick={scrollNext}
               style={{
                 background: props.arrowButtons?.backgroundColor,
                 borderColor: props.arrowButtons?.borderColor,
@@ -239,7 +239,7 @@ export function PopularProductCard(props: PopularProductCardProps) {
               className={`
         ${arrowSize[props.arrowButtons?.size]}
         ${arrowShape[props.arrowButtons?.shape]}
-        flex items-center justify-center
+        flex items-center justify-center embla__next
       `}
             >
               →
@@ -248,9 +248,9 @@ export function PopularProductCard(props: PopularProductCardProps) {
         </div>
 
         {/* PRODUCT GRID */}
-        <div className="overflow-hidden">
-          <div className="flex gap-6 transition-transform duration-300">
-            {visibleDishes.map((dish, i) => (
+        <div className="overflow-hidden embla__viewport" ref={emblaRef}>
+          <div className="flex gap-6 embla__container ">
+            {dishes?.map((dish, i) => (
               <div
                 key={i}
                 style={{
@@ -260,7 +260,7 @@ export function PopularProductCard(props: PopularProductCardProps) {
                   borderWidth: `${props.popularDishCard?.cardBorder}px`,
                 }}
                 className={`
-                p-4 shadow-md
+                p-4 shadow-md embla__slide flex-[0_0_25%]
                 ${cardRadius[props.popularDishCard?.shape]}
               `}
               >

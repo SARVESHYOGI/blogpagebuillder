@@ -1,3 +1,5 @@
+import useEmblaCarousel from "embla-carousel-react";
+
 export interface ReviewProps {
   primaryColor: string;
   secondaryColor: string;
@@ -63,6 +65,20 @@ const reviews = [
     text: "Very nice ambiance and delicious dishes.",
     avatar: "/download.png",
   },
+  {
+    name: "ABC Fox",
+    date: "27/03/2024",
+    rating: 2,
+    text: "Very nice ambiance and delicious dishes.",
+    avatar: "/download.png",
+  },
+  {
+    name: "ABC DEF",
+    date: "27/03/2024",
+    rating: 2,
+    text: "Very nice ambiance and delicious dishes.",
+    avatar: "/download.png",
+  },
 ];
 
 export function Review(props: ReviewProps) {
@@ -90,12 +106,19 @@ export function Review(props: ReviewProps) {
     "3": "border-4",
     "4": "border-8",
   };
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    duration: 30,
+  });
+  const scrollPrev = () => emblaApi?.scrollPrev();
+  const scrollNext = () => emblaApi?.scrollNext();
 
   return (
     <section
       style={{
         marginTop: props.gapFromTop,
         marginBottom: props.gapFromBottom,
+        background: props.primaryColor,
       }}
       className="w-full px-6"
     >
@@ -115,6 +138,7 @@ export function Review(props: ReviewProps) {
       {/* ARROWS */}
       <div className="flex justify-end gap-3 mt-4">
         <button
+          onClick={scrollPrev}
           className={`p-2 ${cardShape[props.arrowButtons?.shape]} ${borderSize[props.arrowButtons?.border]}`}
           style={{
             background: props.arrowButtons?.backgroundColor,
@@ -125,6 +149,7 @@ export function Review(props: ReviewProps) {
         </button>
 
         <button
+          onClick={scrollNext}
           className={`p-2 ${cardShape[props.arrowButtons?.shape]} ${borderSize[props.arrowButtons?.border]}`}
           style={{
             background: props.arrowButtons?.backgroundColor,
@@ -135,64 +160,102 @@ export function Review(props: ReviewProps) {
         </button>
       </div>
 
-      {/* REVIEW CARDS */}
-      <div className="grid grid-cols-3 gap-6 mt-10">
-        {reviews.map((review, i) => {
-          /* ---------------- TEMPLATE ONE ---------------- */
+      <div className="overflow-hidden py-10" ref={emblaRef}>
+        <div className="flex gap-6 embla__container will-change-transform">
+          {reviews.map((review, i) => {
+            /* ---------------- TEMPLATE ONE ---------------- */
 
-          if (props.reviewTemplate === "TEMPLATE_ONE") {
+            if (props.reviewTemplate === "TEMPLATE_ONE") {
+              return (
+                <div
+                  key={i}
+                  className={`embla__slide flex-[0_0_85%] sm:flex-[0_0_50%] lg:flex-[0_0_33%] p-6 shadow-md ${cardShape[props.reviewCard.cardShape]}`}
+                  style={{
+                    background: props.reviewCard.backgroundColor,
+                    color: props.reviewCard.textColor,
+                  }}
+                >
+                  <div className="flex justify-center mb-3">
+                    <img
+                      src={review.avatar}
+                      className="w-12 h-12 rounded-full"
+                    />
+                  </div>
+
+                  <div className="font-semibold">{review.name}</div>
+
+                  <div className="text-yellow-500 mb-3">
+                    {" "}
+                    {"★".repeat(review.rating)}
+                  </div>
+
+                  <p className="text-sm">{review.text}</p>
+
+                  <div className="text-xs mt-4 opacity-60">
+                    Source: Review source
+                  </div>
+                </div>
+              );
+            }
+
+            /* ---------------- TEMPLATE TWO ---------------- */
+
+            if (props.reviewTemplate === "TEMPLATE_TWO") {
+              return (
+                <div
+                  key={i}
+                  className={`embla__slide flex-[0_0_85%] sm:flex-[0_0_50%] lg:flex-[0_0_33%] p-6 shadow-md ${cardShape[props.reviewCard.cardShape]}`}
+                  style={{
+                    background: props.reviewCard.backgroundColor,
+                    color: props.reviewCard.textColor,
+                    borderColor: props.reviewCard.cardBorderColor,
+                  }}
+                >
+                  <div className="text-gray-300 text-4xl mb-2">“</div>
+
+                  <p className="mb-4">{review.text}</p>
+
+                  <div className="text-yellow-500 mb-3">
+                    {" "}
+                    {"★".repeat(review.rating)}
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={review.avatar}
+                      className="w-10 h-10 rounded-full"
+                    />
+
+                    <div>
+                      <div className="font-semibold">{review.name}</div>
+                      <div className="text-xs opacity-70">{review.date}</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
             return (
               <div
                 key={i}
-                className={`p-6 text-center shadow-md ${cardShape[props.reviewCard.cardShape]}`}
-                style={{
-                  background: props.reviewCard.backgroundColor,
-                  color: props.reviewCard.textColor,
-                }}
-              >
-                <div className="flex justify-center mb-3">
-                  <img src={review.avatar} className="w-12 h-12 rounded-full" />
-                </div>
-
-                <div className="font-semibold">{review.name}</div>
-
-                <div className="text-yellow-500 mb-3">
-                  {" "}
-                  {"★".repeat(review.rating)}
-                </div>
-
-                <p className="text-sm">{review.text}</p>
-
-                <div className="text-xs mt-4 opacity-60">
-                  Source: Review source
-                </div>
-              </div>
-            );
-          }
-
-          /* ---------------- TEMPLATE TWO ---------------- */
-
-          if (props.reviewTemplate === "TEMPLATE_TWO") {
-            return (
-              <div
-                key={i}
-                className={`p-6 shadow-md ${cardShape[props.reviewCard.cardShape]} ${borderSize[props.reviewCard.cardBorder]}`}
+                className={`embla__slide flex-[0_0_85%] sm:flex-[0_0_50%] lg:flex-[0_0_33%] p-6 shadow-md ${cardShape[props.reviewCard.cardShape]}`}
                 style={{
                   background: props.reviewCard.backgroundColor,
                   color: props.reviewCard.textColor,
                   borderColor: props.reviewCard.cardBorderColor,
                 }}
               >
-                <div className="text-gray-300 text-4xl mb-2">“</div>
-
-                <p className="mb-4">{review.text}</p>
-
-                <div className="text-yellow-500 mb-3">
-                  {" "}
-                  {"★".repeat(review.rating)}
+                <div className="flex justify-between mb-4">
+                  <div className="text-yellow-500">
+                    {" "}
+                    {"★".repeat(review.rating)}
+                  </div>
+                  <div className="text-gray-300 text-3xl">”</div>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <p className="mb-6">{review.text}</p>
+
+                <div className="flex items-center gap-3 border-t pt-3">
                   <img src={review.avatar} className="w-10 h-10 rounded-full" />
 
                   <div>
@@ -202,39 +265,8 @@ export function Review(props: ReviewProps) {
                 </div>
               </div>
             );
-          }
-
-          return (
-            <div
-              key={i}
-              className={`p-6 shadow-md ${cardShape[props.reviewCard.cardShape]} ${borderSize[props.reviewCard.cardBorder]}`}
-              style={{
-                background: props.reviewCard.backgroundColor,
-                color: props.reviewCard.textColor,
-                borderColor: props.reviewCard.cardBorderColor,
-              }}
-            >
-              <div className="flex justify-between mb-4">
-                <div className="text-yellow-500">
-                  {" "}
-                  {"★".repeat(review.rating)}
-                </div>
-                <div className="text-gray-300 text-3xl">”</div>
-              </div>
-
-              <p className="mb-6">{review.text}</p>
-
-              <div className="flex items-center gap-3 border-t pt-3">
-                <img src={review.avatar} className="w-10 h-10 rounded-full" />
-
-                <div>
-                  <div className="font-semibold">{review.name}</div>
-                  <div className="text-xs opacity-70">{review.date}</div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+          })}
+        </div>
       </div>
     </section>
   );

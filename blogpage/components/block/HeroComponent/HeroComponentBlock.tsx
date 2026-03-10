@@ -149,6 +149,7 @@ export const HeroComponentBlock: ComponentConfig<HeroProps> = {
             { label: "Left", value: "left" },
             { label: "Center", value: "center" },
             { label: "Right", value: "right" },
+            { label: "After Buttons", value: "after-buttons" },
           ],
         },
 

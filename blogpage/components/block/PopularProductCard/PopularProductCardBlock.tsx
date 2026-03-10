@@ -3,13 +3,38 @@ import {
   PopularProductCardProps,
   PopularProductCard,
 } from "./PopularProductCard";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const PopularProductCardBlock: ComponentConfig<
   React.PropsWithChildren<PopularProductCardProps>
 > = {
   fields: {
-    primaryColor: { type: "text" },
-    secondaryColor: { type: "text" },
+    primaryColor: {
+      type: "custom",
+      label: "Primary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Primary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
+    secondaryColor: {
+      type: "custom",
+      label: "Secondary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Secondary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
 
     gapFromTop: { type: "number" },
     gapFromBottom: { type: "number" },
@@ -83,7 +108,19 @@ export const PopularProductCardBlock: ComponentConfig<
           ],
         },
 
-        backgroundColor: { type: "text" },
+        backgroundColor: {
+          type: "custom",
+          label: "Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         border: {
           type: "select",
@@ -96,7 +133,19 @@ export const PopularProductCardBlock: ComponentConfig<
           ],
         },
 
-        borderColor: { type: "text" },
+        borderColor: {
+          type: "custom",
+          label: "Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
       },
     },
 
@@ -119,9 +168,33 @@ export const PopularProductCardBlock: ComponentConfig<
           ],
         },
 
-        backgroundColor: { type: "text" },
+        backgroundColor: {
+          type: "custom",
+          label: "Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
-        textColor: { type: "text" },
+        textColor: {
+          type: "custom",
+          label: "Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         cardBorder: {
           type: "select",
@@ -134,11 +207,47 @@ export const PopularProductCardBlock: ComponentConfig<
           ],
         },
 
-        cardBorderColor: { type: "text" },
+        cardBorderColor: {
+          type: "custom",
+          label: "Card Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Card Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
-        hoverBgColor: { type: "text" },
+        hoverBgColor: {
+          type: "custom",
+          label: "Hover Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Hover Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
-        hoverTextColor: { type: "text" },
+        hoverTextColor: {
+          type: "custom",
+          label: "Hover Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Hover Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         titleSize: {
           type: "select",
@@ -176,7 +285,19 @@ export const PopularProductCardBlock: ComponentConfig<
           ],
         },
 
-        buttonBgColor: { type: "text" },
+        buttonBgColor: {
+          type: "custom",
+          label: "Button Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Button Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         buttonBorder: {
           type: "select",
@@ -189,7 +310,19 @@ export const PopularProductCardBlock: ComponentConfig<
           ],
         },
 
-        buttonBorderColor: { type: "text" },
+        buttonBorderColor: {
+          type: "custom",
+          label: "Button Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Button Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         image: {
           type: "radio",
@@ -204,11 +337,47 @@ export const PopularProductCardBlock: ComponentConfig<
     exploreMoreButton: {
       type: "object",
       objectFields: {
-        backgroundColor: { type: "text" },
+        backgroundColor: {
+          type: "custom",
+          label: "Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
-        textColor: { type: "text" },
+        textColor: {
+          type: "custom",
+          label: "Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
-        hoverTextColor: { type: "text" },
+        hoverTextColor: {
+          type: "custom",
+          label: "Hover Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Hover Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         size: {
           type: "radio",
@@ -247,7 +416,19 @@ export const PopularProductCardBlock: ComponentConfig<
           ],
         },
 
-        borderColor: { type: "text" },
+        borderColor: {
+          type: "custom",
+          label: "Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
       },
     },
   },

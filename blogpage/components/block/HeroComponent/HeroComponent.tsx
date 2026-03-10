@@ -9,7 +9,7 @@ export interface HeroProps {
   AlignMobileView: boolean;
 
   AppButtons: {
-    Align: "left" | "center" | "right";
+    Align: "left" | "center" | "right" | "after-buttons";
     Shape: boolean;
   };
 
@@ -57,10 +57,17 @@ export const HeroComponent: React.FC<HeroProps> = (props) => {
     `h${props.Title?.level || 1}` as keyof React.JSX.IntrinsicElements;
   const SubTitleTag =
     `h${props.SubTitle?.level || 2}` as keyof React.JSX.IntrinsicElements;
-
+  const fontWeightMap: Record<number, string> = {
+    1: "font-extrabold",
+    2: "font-bold",
+    3: "font-semibold",
+    4: "font-medium",
+    5: "font-normal",
+    6: "font-light",
+  };
   return (
     <section
-      className="relative w-full h-[600px] bg-cover bg-center flex items-center"
+      className="relative w-full min-h-[500px] md:min-h-[600px] lg:min-h-[700px] bg-cover bg-center flex items-center"
       style={{
         backgroundImage: `url(${bgImage})`,
       }}
@@ -71,9 +78,10 @@ export const HeroComponent: React.FC<HeroProps> = (props) => {
 
       <div
         className={cx(
-          "relative z-10 container mx-auto px-6",
+          "relative z-10 container mx-auto px-6 py-12",
           props.Align && "text-center",
           !props.Align && "text-left",
+          props.AlignMobileView ? "text-center" : "text-left",
         )}
       >
         {/* Logo */}
@@ -100,7 +108,7 @@ export const HeroComponent: React.FC<HeroProps> = (props) => {
         {/* Title */}
         <TitleTag
           className={cx(
-            "font-bold",
+            fontWeightMap[props.Title?.level || 1],
             props.Title?.fontSize === "L" && "text-5xl",
             props.Title?.fontSize === "M" && "text-4xl",
             props.Title?.fontSize === "S" && "text-3xl",
@@ -109,16 +117,17 @@ export const HeroComponent: React.FC<HeroProps> = (props) => {
           )}
           style={{ color: props.PrimaryColor }}
         >
-          Test Dev Shop
+          {data.name}
         </TitleTag>
 
         {/* Subtitle */}
         <SubTitleTag
           className={cx(
             "mt-2 text-gray-200",
-            props.SubTitle?.fontSize === "L" && "text-xl",
+            fontWeightMap[props.SubTitle?.level || 2],
+            props.SubTitle?.fontSize === "L" && "text-2xl",
             props.SubTitle?.fontSize === "M" && "text-lg",
-            props.SubTitle?.fontSize === "S" && "text-md",
+            props.SubTitle?.fontSize === "S" && "text-base",
             props.SubTitle?.textTransform && "uppercase",
           )}
           style={{ color: props.SecondaryColor }}
@@ -167,18 +176,26 @@ export const HeroComponent: React.FC<HeroProps> = (props) => {
         </div>
 
         {/* App Store Buttons */}
+        {props.AppButtons.Align === "after-buttons" && (
+          <div className={cx("flex gap-3 mt-6 items-center")}>
+            <img src="/assets/playstore.png" className="w-10" />
+            <img src="/assets/applestore.png" className="w-10" />
+          </div>
+        )}
+      </div>
+      {props.AppButtons.Align !== "after-buttons" && (
         <div
           className={cx(
-            "flex gap-3 mt-6",
-            props.AppButtons?.Align === "left" && "justify-start",
-            props.AppButtons?.Align === "center" && "justify-center",
-            props.AppButtons?.Align === "right" && "justify-end",
+            "absolute bottom-6 left-0 w-full px-6 flex gap-3 z-10",
+            props.AppButtons.Align === "left" && "justify-start",
+            props.AppButtons.Align === "center" && "justify-center",
+            props.AppButtons.Align === "right" && "justify-end",
           )}
         >
-          <img src="/playstore.png" className="w-10" />
-          <img src="/applestore.png" className="w-10" />
+          <img src="/assets/playstore.png" className="w-10" />
+          <img src="/assets/applestore.png" className="w-10" />
         </div>
-      </div>
+      )}
     </section>
   );
 };
