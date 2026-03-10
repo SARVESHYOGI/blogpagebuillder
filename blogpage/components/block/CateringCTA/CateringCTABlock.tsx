@@ -1,13 +1,38 @@
 import { ComponentConfig } from "@puckeditor/core";
 import { CateringCTA, CateringCTAProps } from "./CateringCTA";
 import React from "react";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const CateringCTABlock: ComponentConfig<
   React.PropsWithChildren<CateringCTAProps>
 > = {
   fields: {
-    PrimaryColor: { type: "text" },
-    SecondaryColor: { type: "text" },
+    PrimaryColor: {
+      type: "custom",
+      label: "Primary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Primary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
+    SecondaryColor: {
+      type: "custom",
+      label: "Secondary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Secondary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
 
     GapFromTop: { type: "number" },
     GapFromBottom: { type: "number" },

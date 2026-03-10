@@ -1,11 +1,36 @@
 import { ComponentConfig } from "@puckeditor/core";
 import { PaymentLogos, PaymentLogosProps } from "./PaymentLogos";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const PaymentLogosBlock: ComponentConfig<PaymentLogosProps> = {
   fields: {
-    primaryColor: { type: "text" },
+    primaryColor: {
+      type: "custom",
+      label: "Primary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Primary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
 
-    secondaryColor: { type: "text" },
+    secondaryColor: {
+      type: "custom",
+      label: "Secondary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Secondary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
 
     paymentLogos: {
       label: "Payment",
@@ -37,7 +62,19 @@ export const PaymentLogosBlock: ComponentConfig<PaymentLogosProps> = {
       ],
     },
 
-    backgroundColor: { type: "text" },
+    backgroundColor: {
+      type: "custom",
+      label: "Background Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Background Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
   },
 
   defaultProps: {

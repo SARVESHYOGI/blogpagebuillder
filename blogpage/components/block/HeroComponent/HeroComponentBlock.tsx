@@ -1,16 +1,35 @@
 import { ComponentConfig } from "@puckeditor/core";
 import { HeroComponent, HeroProps } from "./HeroComponent";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const HeroComponentBlock: ComponentConfig<HeroProps> = {
   fields: {
     PrimaryColor: {
-      type: "text",
+      type: "custom",
       label: "Primary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Primary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
     },
 
     SecondaryColor: {
-      type: "text",
+      type: "custom",
       label: "Secondary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Secondary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
     },
 
     Align: {
@@ -165,7 +184,19 @@ export const HeroComponentBlock: ComponentConfig<HeroProps> = {
     OrderNow: {
       type: "object",
       objectFields: {
-        hoverTextColor: { type: "text", label: "Hover Text Color" },
+        hoverTextColor: {
+          type: "custom",
+          label: "Hover Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Hover Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         size: {
           type: "select",
@@ -193,7 +224,19 @@ export const HeroComponentBlock: ComponentConfig<HeroProps> = {
           ],
         },
 
-        borderColor: { type: "text", label: "Border Color" },
+        borderColor: {
+          type: "custom",
+          label: "Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         rounded: {
           type: "select",
@@ -217,7 +260,19 @@ export const HeroComponentBlock: ComponentConfig<HeroProps> = {
     ReserveNow: {
       type: "object",
       objectFields: {
-        hoverTextColor: { type: "text", label: "Hover Text Color" },
+        hoverTextColor: {
+          type: "custom",
+          label: "Hover Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Hover Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         size: {
           type: "select",
@@ -245,7 +300,19 @@ export const HeroComponentBlock: ComponentConfig<HeroProps> = {
           ],
         },
 
-        borderColor: { type: "text", label: "Border Color" },
+        borderColor: {
+          type: "custom",
+          label: "Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         rounded: {
           type: "select",

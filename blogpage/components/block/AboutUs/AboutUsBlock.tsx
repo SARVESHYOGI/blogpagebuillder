@@ -17,7 +17,19 @@ export const AboutUsCardBlock: ComponentConfig<AboutUsCardProps> = {
         );
       },
     },
-    secondaryColor: { type: "text" },
+    secondaryColor: {
+      type: "custom",
+      label: "Secondary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Secondary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
 
     gapFromTop: { type: "number" },
     gapFromBottom: { type: "number" },
@@ -134,7 +146,19 @@ export const AboutUsCardBlock: ComponentConfig<AboutUsCardProps> = {
             { label: "4", value: "4" },
           ],
         },
-        borderColor: { type: "text" },
+        borderColor: {
+          type: "custom",
+          label: "Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
       },
     },
   },

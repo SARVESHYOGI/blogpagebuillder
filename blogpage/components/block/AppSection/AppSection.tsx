@@ -146,7 +146,7 @@ export function AppSection(props: AppSectionProps) {
           {/* STORE BUTTONS */}
           <div className="flex gap-4">
             <img
-              src="/playstore.png"
+              src="/assets/playstore.png"
               className={cx(
                 buttonSize[props.appButtonsSize],
                 buttonShape[props.appButtons],
@@ -154,7 +154,7 @@ export function AppSection(props: AppSectionProps) {
             />
 
             <img
-              src="/applestore.png"
+              src="/assets/applestore.png"
               className={cx(
                 buttonSize[props.appButtonsSize],
                 buttonShape[props.appButtons],

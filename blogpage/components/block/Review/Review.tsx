@@ -49,35 +49,35 @@ const reviews = [
     date: "27/03/2024",
     rating: 5,
     text: "The service and the food was excellent. Every little detail and the place itself was fantastic.",
-    avatar: "/download.png",
+    avatar: "/assets/download.png",
   },
   {
     name: "Anna Smith",
     date: "27/03/2024",
     rating: 5,
     text: "Amazing food and great staff. Highly recommended!",
-    avatar: "/download.png",
+    avatar: "/assets/download.png",
   },
   {
     name: "Robert Fox",
     date: "27/03/2024",
     rating: 2,
     text: "Very nice ambiance and delicious dishes.",
-    avatar: "/download.png",
+    avatar: "/assets/download.png",
   },
   {
     name: "ABC Fox",
     date: "27/03/2024",
     rating: 2,
     text: "Very nice ambiance and delicious dishes.",
-    avatar: "/download.png",
+    avatar: "/assets/download.png",
   },
   {
     name: "ABC DEF",
     date: "27/03/2024",
     rating: 2,
     text: "Very nice ambiance and delicious dishes.",
-    avatar: "/download.png",
+    avatar: "/assets/download.png",
   },
 ];
 
@@ -120,7 +120,7 @@ export function Review(props: ReviewProps) {
         marginBottom: props.gapFromBottom,
         background: props.primaryColor,
       }}
-      className="w-full px-6"
+      className="w-full p-6"
     >
       {/* HEADING */}
       <div className={alignMap[props.heading?.align]}>

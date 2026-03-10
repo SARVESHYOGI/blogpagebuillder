@@ -1,13 +1,38 @@
 import { ComponentConfig } from "@puckeditor/core";
 import { AppSection, AppSectionProps } from "./AppSection";
 import React from "react";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const AppSectionBlock: ComponentConfig<
   React.PropsWithChildren<AppSectionProps>
 > = {
   fields: {
-    primaryColor: { type: "text" },
-    secondaryColor: { type: "text" },
+    primaryColor: {
+      type: "custom",
+      label: "Primary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Primary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
+    secondaryColor: {
+      type: "custom",
+      label: "Secondary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Secondary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
 
     gapFromTop: { type: "number" },
     gapFromBottom: { type: "number" },

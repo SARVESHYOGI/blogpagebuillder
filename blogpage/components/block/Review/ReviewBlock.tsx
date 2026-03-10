@@ -1,12 +1,37 @@
 import { ComponentConfig } from "@puckeditor/core";
 import { Review, ReviewProps } from "./Review";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const ReviewBlock: ComponentConfig<
   React.PropsWithChildren<ReviewProps>
 > = {
   fields: {
-    primaryColor: { type: "text" },
-    secondaryColor: { type: "text" },
+    primaryColor: {
+      type: "custom",
+      label: "Primary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Primary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
+    secondaryColor: {
+      type: "custom",
+      label: "Secondary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Secondary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
 
     gapFromTop: { type: "number" },
     gapFromBottom: { type: "number" },
@@ -88,7 +113,19 @@ export const ReviewBlock: ComponentConfig<
           ],
         },
 
-        backgroundColor: { type: "text" },
+        backgroundColor: {
+          type: "custom",
+          label: "Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         border: {
           type: "select",
@@ -101,15 +138,51 @@ export const ReviewBlock: ComponentConfig<
           ],
         },
 
-        borderColor: { type: "text" },
+        borderColor: {
+          type: "custom",
+          label: "Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
       },
     },
 
     reviewCard: {
       type: "object",
       objectFields: {
-        backgroundColor: { type: "text" },
-        textColor: { type: "text" },
+        backgroundColor: {
+          type: "custom",
+          label: "Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
+        textColor: {
+          type: "custom",
+          label: "Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         cardShape: {
           type: "radio",
@@ -130,7 +203,19 @@ export const ReviewBlock: ComponentConfig<
           ],
         },
 
-        cardBorderColor: { type: "text" },
+        cardBorderColor: {
+          type: "custom",
+          label: "Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         nameFontSize: {
           type: "radio",
@@ -151,8 +236,32 @@ export const ReviewBlock: ComponentConfig<
           ],
         },
 
-        hoverBgColor: { type: "text" },
-        hoverTextColor: { type: "text" },
+        hoverBgColor: {
+          type: "custom",
+          label: "Hover Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Hover Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
+        hoverTextColor: {
+          type: "custom",
+          label: "Hover Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Hover Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         alignDescription: {
           type: "radio",

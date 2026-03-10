@@ -1,15 +1,37 @@
 import { ComponentConfig, DropZone } from "@puckeditor/core";
 import { NavigationBar, NavigationBarProps } from "./NavigationBar";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const NavigationBarBlock: ComponentConfig<
   React.PropsWithChildren<NavigationBarProps>
 > = {
   fields: {
     BackgroundColor: {
-      type: "text",
+      type: "custom",
       label: "Background Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Background Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
     },
-    TextIconColor: { type: "text", label: "Text/Icon Color" },
+    TextIconColor: {
+      type: "custom",
+      label: "Text/Icon Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Text/Icon Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
     GapFromTop: { type: "number", label: "Gap from Top" },
     GapFromBottom: { type: "number", label: "Gap from Bottom" },
     BackgroundStyle: {

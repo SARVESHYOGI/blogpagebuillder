@@ -1,13 +1,38 @@
 import { ComponentConfig } from "@puckeditor/core";
 import { MenuDetails, MenuDetailsProps } from "./MenuDetails";
 import React from "react";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const MenuDetailsBlock: ComponentConfig<
   React.PropsWithChildren<MenuDetailsProps>
 > = {
   fields: {
-    primaryColor: { type: "text" },
-    secondaryColor: { type: "text" },
+    primaryColor: {
+      type: "custom",
+      label: "Primary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Primary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
+    secondaryColor: {
+      type: "custom",
+      label: "Secondary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Secondary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
 
     gapFromTop: { type: "number" },
     gapFromBottom: { type: "number" },
@@ -52,9 +77,33 @@ export const MenuDetailsBlock: ComponentConfig<
           ],
         },
 
-        categoryBgColor: { type: "text" },
+        categoryBgColor: {
+          type: "custom",
+          label: "Category Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Category Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
-        categoryTextColor: { type: "text" },
+        categoryTextColor: {
+          type: "custom",
+          label: "Category Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Category Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         categoryButtonSize: {
           type: "radio",
@@ -78,9 +127,33 @@ export const MenuDetailsBlock: ComponentConfig<
     productSection: {
       type: "object",
       objectFields: {
-        bgColor: { type: "text" },
+        bgColor: {
+          type: "custom",
+          label: "Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
-        textColor: { type: "text" },
+        textColor: {
+          type: "custom",
+          label: "Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         categoryImageShape: {
           type: "radio",
@@ -150,18 +223,66 @@ export const MenuDetailsBlock: ComponentConfig<
           ],
         },
 
-        productTextColor: { type: "text" },
+        productTextColor: {
+          type: "custom",
+          label: "Product Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Product Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
       },
     },
 
     orderNowButton: {
       type: "object",
       objectFields: {
-        backgroundColor: { type: "text" },
+        backgroundColor: {
+          type: "custom",
+          label: "Background Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Background Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
-        textColor: { type: "text" },
+        textColor: {
+          type: "custom",
+          label: "Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
-        hoverTextColor: { type: "text" },
+        hoverTextColor: {
+          type: "custom",
+          label: "Hover Text Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Hover Text Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
 
         size: {
           type: "radio",
@@ -200,7 +321,19 @@ export const MenuDetailsBlock: ComponentConfig<
           ],
         },
 
-        borderColor: { type: "text" },
+        borderColor: {
+          type: "custom",
+          label: "Border Color",
+          render(props) {
+            return (
+              <ColorPickerField
+                label="Border Color"
+                value={props.value}
+                onChange={props.onChange}
+              />
+            );
+          },
+        },
       },
     },
   },

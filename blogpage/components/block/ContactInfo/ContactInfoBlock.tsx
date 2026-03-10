@@ -1,12 +1,37 @@
 import { ComponentConfig } from "@puckeditor/core";
 import { ContactInfo, ContactInfoProps } from "./ContactInfo";
+import { ColorPickerField } from "../../ColorPickerField";
 
 export const ContactInfoBlock: ComponentConfig<
   React.PropsWithChildren<ContactInfoProps>
 > = {
   fields: {
-    PrimaryColor: { type: "text" },
-    SecondaryColor: { type: "text" },
+    PrimaryColor: {
+      type: "custom",
+      label: "Primary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Primary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
+    SecondaryColor: {
+      type: "custom",
+      label: "Secondary Color",
+      render(props) {
+        return (
+          <ColorPickerField
+            label="Secondary Color"
+            value={props.value}
+            onChange={props.onChange}
+          />
+        );
+      },
+    },
     GapFromTop: { type: "number" },
     GapFromBottom: { type: "number" },
 
